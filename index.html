@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>LUXURY 5 STAR- HOTEL MANAGEMENT SOFTWARE</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div style="display:flex;gap:20px;align-items:center">
+    <div class="logo">☸ HOTEL MANAGEMENT  <span>LUXURY - MOBILE + DESKTOP</span></div>
+    <div class="nav-desktop">
+      <div class="nav-item active" onclick="switchTab('dashboard')">📊 Dashboard</div>
+      <div class="nav-item" onclick="switchTab('rooms')">🛏️ Rooms (45)</div>
+      <div class="nav-item" onclick="switchTab('restaurant')">🍽️ Restaurant</div>
+      <div class="nav-item" onclick="switchTab('staff')">👷 Staff</div>
+      <div class="nav-item" onclick="switchTab('bookings')">📅 Bookings</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="gold-btn" onclick="openBooking()">+ Book</button>
+    <button class="gold-btn blue" onclick="openStaff()">+ Staff</button>
+  </div>
+</div>
+
+<div id="dashboard" class="tab">
+  <div class="card">
+    <div class="stats">
+      <div class="stat-card"><h4>TOTAL ROOMS</h4><div class="val" id="totalRooms">45</div></div>
+      <div class="stat-card"><h4>AVAILABLE</h4><div class="val green" id="availVal">0</div></div>
+      <div class="stat-card"><h4>BOOKINGS</h4><div class="val" id="bookCount">0</div></div>
+      <div class="stat-card"><h4>STAFF</h4><div class="val" id="totalStaff">0</div></div>
+      <div class="stat-card"><h4>REVENUE</h4><div class="val" id="revVal">₹0</div></div>
+      <div class="stat-card"><h4>RESTAURANT</h4><div class="val" id="restSale">₹0</div></div>
+    </div>
+  </div>
+  <div class="card"><h3>Live Rooms - Tap for Details + Photos + 3D</h3><div class="room-grid" id="roomGridDash"></div></div>
+</div>
+
+<div id="rooms" class="tab hidden">
+  <div class="card">
+    <div class="filter-row">
+      <button class="gold-btn" onclick="filterRooms('All')">All 45</button>
+      <button class="gold-btn" onclick="filterRooms('Deluxe')">Deluxe 15</button>
+      <button class="gold-btn" onclick="filterRooms('Suite')">Suite 15</button>
+      <button class="gold-btn" onclick="filterRooms('Presidential')">Presidential 15</button>
+    </div>
+    <div class="luxury-grid" id="luxuryRooms"></div>
+  </div>
+</div>
+
+<div id="restaurant" class="tab hidden">
+  <div class="card">
+    <h3>🍽️ Restaurant Orders</h3>
+    <div id="restOrders"></div>
+    <div class="rest-form">
+      <select class="input" id="restRoom"></select>
+      <select class="input" id="restItem"><option>Veg Biryani ₹350</option><option>Chicken Curry ₹450</option><option>Paneer Tikka ₹300</option></select>
+      <button class="gold-btn" onclick="addRestOrder()">Add</button>
+    </div>
+  </div>
+</div>
+
+<div id="staff" class="tab hidden">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center"><h3>Staff - Payment, Timing, Gender</h3><button class="gold-btn" onclick="openStaff()">+ Add</button></div>
+    <div class="table-wrap"><table><thead><tr><th>Name</th><th>Gender</th><th>Role</th><th>Joining</th><th>Timing</th><th>Salary</th><th>Status</th></tr></thead><tbody id="empTable"></tbody></table></div>
+  </div>
+</div>
+
+<div id="bookings" class="tab hidden">
+  <div class="card"><h3>Bookings</h3><div class="table-wrap"><table><thead><tr><th>Guest</th><th>Room</th><th>Amount</th><th>Bill</th></tr></thead><tbody id="bookTable"></tbody></table></div></div>
+</div>
+
+<div class="bottom-nav">
+  <div class="b-item active" onclick="switchTabMobile('dashboard',this)"><span>📊</span>Dashboard</div>
+  <div class="b-item" onclick="switchTabMobile('rooms',this)"><span>🛏️</span>Rooms</div>
+  <div class="b-item" onclick="switchTabMobile('restaurant',this)"><span>🍽️</span>Food</div>
+  <div class="b-item" onclick="switchTabMobile('staff',this)"><span>👷</span>Staff</div>
+  <div class="b-item" onclick="switchTabMobile('bookings',this)"><span>📅</span>Books</div>
+</div>
+
+<!-- MODALS -->
+<div class="modal" id="roomModal"><div class="modal-box large"><h3 id="roomTitle"></h3><img id="roomImg" class="room-main-img"><div class="detail-grid"><div id="roomThumbs"></div><div id="roomInfo"></div></div><button class="gold-btn full" onclick="closeRoom()">Close</button></div></div>
+<div class="modal" id="bookingModal"><div class="modal-box"><h3>New Booking</h3><input class="input" id="gName" placeholder="Guest Name"><input class="input" id="gPhone" placeholder="Phone"><select class="input" id="rSelect"></select><input class="input" id="amt" placeholder="Amount"><div class="flex-row"><button class="input" onclick="closeBooking()">Cancel</button><button class="gold-btn flex-1" onclick="saveBooking()">Confirm</button></div></div></div>
+<div class="modal" id="staffModal"><div class="modal-box"><h3>Add Staff</h3><input class="input" id="eName" placeholder="Name"><select class="input" id="eGender"><option value="">Gender</option><option value="Female">👩 Female - Ladki</option><option value="Male">👨 Male - Ladka</option></select><select class="input" id="eRole"><option>Manager</option><option>Receptionist</option><option>Housekeeping</option><option>Chef</option><option>Security</option></select><input class="input" id="eJoin" type="date"><select class="input" id="eTiming"><option>9 AM - 6 PM</option><option>6 PM - 3 AM</option><option>9 PM - 9 AM Night</option></select><input class="input" id="eSalary" type="number" placeholder="Salary ₹"><div class="flex-row"><button class="input" onclick="closeStaff()">Cancel</button><button class="gold-btn flex-1" onclick="saveEmp()">Save</button></div></div></div>
+
+<script src="script.js"></script>
+</body>
+</html>
