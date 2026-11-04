@@ -1,93 +1,1120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>LUXURY 5 STAR- HOTEL MANAGEMENT SOFTWARE</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GRAND ROYAL PALACE - Luxury 5-Star Hotel Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="topbar">
-  <div style="display:flex;gap:20px;align-items:center">
-    <div class="logo">☸ HOTEL MANAGEMENT  <span>LUXURY - MOBILE + DESKTOP</span></div>
-    <div class="nav-desktop">
-      <div class="nav-item active" onclick="switchTab('dashboard')">📊 Dashboard</div>
-      <div class="nav-item" onclick="switchTab('rooms')">🛏️ Rooms (45)</div>
-      <div class="nav-item" onclick="switchTab('restaurant')">🍽️ Restaurant</div>
-      <div class="nav-item" onclick="switchTab('staff')">👷 Staff</div>
-      <div class="nav-item" onclick="switchTab('bookings')">📅 Bookings</div>
+  <!-- ================= TOPBAR ================= -->
+  <header class="topbar">
+    <div class="brand-wrapper">
+      <div class="hotel-icon-badge">👑</div>
+      <div>
+        <div class="logo">GRAND ROYAL PALACE <span>5-Star Luxury PMS & Resort Suite</span></div>
+      </div>
+      <div class="live-clock-pill" id="liveClockPill">
+        <span>🕒</span> <span id="clockDisplay">--:--:--</span>
+      </div>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-desktop">
+      <div class="nav-item active" onclick="switchTab('dashboard')">
+        <span>📊</span> Dashboard
+      </div>
+      <div class="nav-item" onclick="switchTab('rooms')">
+        <span>🛏️</span> Rooms (45)
+      </div>
+      <div class="nav-item" onclick="switchTab('restaurant')">
+        <span>🍽️</span> Dining POS
+      </div>
+      <div class="nav-item" onclick="switchTab('staff')">
+        <span>👥</span> Staff & Payroll
+      </div>
+      <div class="nav-item" onclick="switchTab('bookings')">
+        <span>📋</span> Bookings & Bills
+      </div>
+      <div class="nav-item" onclick="switchTab('partners')">
+        <span>🤝</span> Owners & Partners
+      </div>
+      <div class="nav-item" onclick="switchTab('settings')">
+        <span>⚙️</span> Settings & Data
+      </div>
+    </nav>
+
+    <!-- Topbar Actions -->
+    <div class="topbar-actions">
+      <button class="btn btn-gold" onclick="openBookingModal()">
+        <span>+</span> Book Room
+      </button>
+      <button class="btn btn-secondary" onclick="openAddPartnerModal()">
+        <span>+</span> Add Partner
+      </button>
+      <button class="btn btn-secondary" onclick="openStaffModal()">
+        <span>+</span> Add Staff
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="main-container">
+
+    <!-- ================= TAB 1: DASHBOARD ================= -->
+    <section id="dashboard" class="tab-content">
+      <!-- KPI Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Total Rooms</span>
+            <span class="stat-icon">🏨</span>
+          </div>
+          <div class="stat-val" id="statTotalRooms">45</div>
+          <div class="stat-sub">Across 3 Luxury Floors</div>
+        </div>
+
+        <div class="stat-card stat-green">
+          <div class="stat-header">
+            <span class="stat-title">Available</span>
+            <span class="stat-icon">✅</span>
+          </div>
+          <div class="stat-val" style="color:var(--status-available)" id="statAvailable">0</div>
+          <div class="stat-sub">Ready for check-in</div>
+        </div>
+
+        <div class="stat-card stat-red">
+          <div class="stat-header">
+            <span class="stat-title">Occupied</span>
+            <span class="stat-icon">🔒</span>
+          </div>
+          <div class="stat-val" style="color:var(--status-occupied)" id="statOccupied">0</div>
+          <div class="stat-sub" id="statOccupancyPct">0% Occupancy</div>
+        </div>
+
+        <div class="stat-card stat-yellow">
+          <div class="stat-header">
+            <span class="stat-title">Cleaning / Maint</span>
+            <span class="stat-icon">🧹</span>
+          </div>
+          <div class="stat-val" style="color:var(--status-cleaning)" id="statCleaning">0</div>
+          <div class="stat-sub">Housekeeping active</div>
+        </div>
+
+        <div class="stat-card stat-blue">
+          <div class="stat-header">
+            <span class="stat-title">Room Revenue</span>
+            <span class="stat-icon">💼</span>
+          </div>
+          <div class="stat-val" style="color:#60a5fa" id="statRoomRevenue">₹0</div>
+          <div class="stat-sub" id="statBookingsCount">0 Bookings</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Dining & Total</span>
+            <span class="stat-icon">🥂</span>
+          </div>
+          <div class="stat-val" style="color:var(--gold-300)" id="statTotalRevenue">₹0</div>
+          <div class="stat-sub" id="statRestSales">Dining: ₹0</div>
+        </div>
+      </div>
+
+      <!-- Occupancy Progress Gauge -->
+      <div class="occupancy-bar-wrapper">
+        <div class="occupancy-labels">
+          <span>Hotel Capacity Status</span>
+          <span id="occupancyTextSummary">Loading room status...</span>
+        </div>
+        <div class="occupancy-progress">
+          <div id="progAvail" class="progress-seg seg-avail" style="width: 33%"></div>
+          <div id="progOcc" class="progress-seg seg-occ" style="width: 33%"></div>
+          <div id="progClean" class="progress-seg seg-clean" style="width: 34%"></div>
+        </div>
+        <div class="occupancy-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--status-available)"></div> Available (Vacant)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--status-occupied)"></div> Occupied (Guest Checked In)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--status-cleaning)"></div> Housekeeping / Sanitizing</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--status-maintenance)"></div> Maintenance</div>
+        </div>
+      </div>
+
+      <!-- ================= PER-DAY INCOME & DAILY REVENUE TRACKER ================= -->
+      <div class="daily-income-panel">
+        <div class="daily-income-header">
+          <div>
+            <h3 style="font-family:var(--font-heading);font-size:1.15rem;color:#fff;display:flex;align-items:center;gap:8px;">
+              <span>📅</span> Per-Day Income & Daily Revenue (प्रति दिन की कमाई)
+            </h3>
+            <div style="font-size:0.75rem;color:var(--text-secondary);margin-top:2px;">
+              View exact room bookings income and restaurant food orders income for any specific date.
+            </div>
+          </div>
+          <div class="daily-income-controls">
+            <label style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">Select Date:</label>
+            <input type="date" id="incomeDayPicker" class="daily-date-input" onchange="handleDailyIncomeDateChange(this.value)">
+            <button class="btn btn-sm btn-gold" onclick="setIncomeDateToday()">Today</button>
+            <button class="btn btn-sm btn-secondary" onclick="setIncomeDateYesterday()">Yesterday</button>
+            <button class="btn btn-sm btn-secondary" onclick="toggleDailyBreakdown()" id="btnToggleDailyBreakdown">
+              <span>📋</span> Details
+            </button>
+          </div>
+        </div>
+
+        <div class="daily-income-grid">
+          <div class="daily-income-card highlight">
+            <div class="daily-card-label">💰 Selected Day Total Income</div>
+            <div class="daily-card-val gold" id="dayTotalIncome">₹0</div>
+            <div style="font-size:0.72rem;color:var(--text-secondary);margin-top:4px;" id="dayTotalSub">Rooms + Restaurant Combined</div>
+          </div>
+          <div class="daily-income-card">
+            <div class="daily-card-label">🛏️ Day's Room Bookings Revenue</div>
+            <div class="daily-card-val blue" id="dayRoomIncome">₹0</div>
+            <div style="font-size:0.72rem;color:var(--text-secondary);margin-top:4px;" id="dayRoomCount">0 Room Check-ins</div>
+          </div>
+          <div class="daily-income-card">
+            <div class="daily-card-label">🍽️ Day's Restaurant Orders Revenue</div>
+            <div class="daily-card-val amber" id="dayRestIncome">₹0</div>
+            <div style="font-size:0.72rem;color:var(--text-secondary);margin-top:4px;" id="dayRestCount">0 Dining Orders</div>
+          </div>
+        </div>
+
+        <!-- Collapsible Details Table -->
+        <div id="dailyBreakdownWrap" class="hidden" style="margin-top:16px;border-top:1px solid var(--border-subtle);padding-top:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <h4 style="font-size:0.85rem;color:var(--gold-300);">Transactions Breakdown for <span id="breakdownDateTitle">--</span></h4>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time / ID</th>
+                  <th>Source</th>
+                  <th>Particulars / Guest</th>
+                  <th>Room No.</th>
+                  <th style="text-align:right;">Amount (₹)</th>
+                </tr>
+              </thead>
+              <tbody id="dailyBreakdownTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room Matrix -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><span>🎛️</span> Live Room Status Grid</h2>
+            <div class="card-subtitle">Click on any room to view details, 360° virtual preview, manage status, or check-in/out.</div>
+          </div>
+          <div class="room-matrix-controls">
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="dashRoomSearch" placeholder="Search Room No. or Guest..." oninput="handleDashSearch(this.value)">
+            </div>
+            <div style="display:flex;gap:6px;">
+              <button class="filter-btn active" onclick="filterDashGrid('ALL', this)">All (45)</button>
+              <button class="filter-btn" onclick="filterDashGrid('Available', this)">Available</button>
+              <button class="filter-btn" onclick="filterDashGrid('Occupied', this)">Occupied</button>
+              <button class="filter-btn" onclick="filterDashGrid('Cleaning', this)">Cleaning</button>
+            </div>
+          </div>
+        </div>
+        <div class="room-grid" id="roomGridDash"></div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 2: ROOMS CATALOG ================= -->
+    <section id="rooms" class="tab-content hidden">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><span>🛏️</span> Luxury Room Directory</h2>
+            <div class="card-subtitle">Browse all 45 luxury suites with curated photos, specifications, and instant booking.</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-secondary" onclick="openBulkPriceModal()">✏️ Edit Suite Category Tariffs</button>
+            <button class="btn btn-gold" onclick="openBookingModal()">+ New Reservation</button>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <button class="filter-btn active" onclick="filterCatalogType('All', this)">All Suites (45)</button>
+          <button class="filter-btn" onclick="filterCatalogType('Deluxe', this)">Deluxe Rooms (15)</button>
+          <button class="filter-btn" onclick="filterCatalogType('Executive Suite', this)">Executive Suites (15)</button>
+          <button class="filter-btn" onclick="filterCatalogType('Presidential Suite', this)">Presidential Suites (15)</button>
+          <span style="margin: 0 8px; color: var(--border-gold);">|</span>
+          <button class="filter-btn" onclick="filterCatalogStatus('Available', this)">🟢 Available Only</button>
+        </div>
+
+        <div class="luxury-grid" id="luxuryRooms"></div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 3: RESTAURANT POS ================= -->
+    <section id="restaurant" class="tab-content hidden">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><span>🍽️</span> Royal Dining & Room Service POS</h2>
+            <div class="card-subtitle">Place room service orders, charge directly to room folio, or record direct orders.</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <div style="font-size:0.85rem;color:var(--gold-300);">
+              Total F&B Revenue: <b id="restHeaderTotal">₹0</b>
+            </div>
+            <button class="btn btn-secondary" onclick="openMenuManagerModal()">✏️ Edit Menu Prices & Add Dish</button>
+          </div>
+        </div>
+
+        <div class="rest-layout">
+          <!-- Left: Menu Selector -->
+          <div>
+            <div class="menu-category-tabs">
+              <button class="filter-btn active" onclick="filterMenuCat('All', this)">All Items</button>
+              <button class="filter-btn" onclick="filterMenuCat('Starters', this)">Starters</button>
+              <button class="filter-btn" onclick="filterMenuCat('Main Course', this)">Main Course</button>
+              <button class="filter-btn" onclick="filterMenuCat('Desserts', this)">Desserts</button>
+              <button class="filter-btn" onclick="filterMenuCat('Beverages', this)">Beverages</button>
+            </div>
+            <div class="menu-grid" id="menuItemsGrid"></div>
+          </div>
+
+          <!-- Right: Order Ticket & Active Room Orders -->
+          <div class="pos-cart-panel">
+            <h3 style="font-family:var(--font-heading);font-size:1.15rem;margin-bottom:10px;color:#fff;">Create Room Service Order</h3>
+            
+            <div class="form-group">
+              <label class="form-label">Charge to Room (Occupied Rooms)</label>
+              <select class="input" id="restRoomSelect">
+                <option value="">-- Select Occupied Room --</option>
+              </select>
+            </div>
+
+            <div style="font-size:0.78rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;">Selected Items</div>
+            <div class="pos-cart-items" id="posCartItems">
+              <div style="text-align:center;padding:24px 0;color:var(--text-muted);font-size:0.85rem;">
+                No items added yet.<br>Click any menu item on the left to add to cart.
+              </div>
+            </div>
+
+            <div class="cart-total-row">
+              <span>Order Subtotal:</span>
+              <span id="posCartSubtotal">₹0</span>
+            </div>
+
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-secondary flex-1" onclick="clearPosCart()">Clear</button>
+              <button class="btn btn-gold flex-1" onclick="submitRoomOrder()">Confirm & Bill Order</button>
+            </div>
+
+            <!-- Recent Orders Feed -->
+            <div style="margin-top:20px;border-top:1px solid var(--border-gold);padding-top:14px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <h4 style="font-size:0.85rem;color:var(--gold-300);">Recent Dining Orders</h4>
+                <span style="font-size:0.72rem;color:var(--text-muted);" id="orderCountBadge">0 Orders</span>
+              </div>
+              <div id="restOrdersList" style="max-height:180px;overflow-y:auto;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 4: STAFF & PAYROLL ================= -->
+    <section id="staff" class="tab-content hidden">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><span>👥</span> Staff Directory & Payroll Management</h2>
+            <div class="card-subtitle">Manage hotel staff profiles, duty timings, salaries, and salary payment disbursements.</div>
+          </div>
+          <button class="btn btn-gold" onclick="openStaffModal()">+ Add New Staff</button>
+        </div>
+
+        <!-- Payroll Summary Cards -->
+        <div class="stats-grid" style="margin-bottom:18px;">
+          <div class="stat-card">
+            <div class="stat-title">Total Staff Members</div>
+            <div class="stat-val" id="payrollTotalStaff">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-title">Total Monthly Payroll</div>
+            <div class="stat-val" style="color:var(--gold-400)" id="payrollTotalAmt">₹0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-title">Salaries Paid</div>
+            <div class="stat-val" style="color:var(--status-available)" id="payrollPaidCount">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-title">Salaries Pending</div>
+            <div class="stat-val" style="color:var(--status-cleaning)" id="payrollPendingCount">0</div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Employee Name</th>
+                <th>Gender</th>
+                <th>Department / Role</th>
+                <th>Joining Date</th>
+                <th>Shift Timings</th>
+                <th>Monthly Salary</th>
+                <th>Salary Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="empTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 5: BOOKINGS & BILLS ================= -->
+    <section id="bookings" class="tab-content hidden">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><span>📋</span> Guest Reservations & Tax Billing</h2>
+            <div class="card-subtitle">Real-time guest registry, checkout settlement, and GST invoice generation.</div>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="bookingSearchInput" placeholder="Search Guest or Room..." oninput="handleBookingSearch(this.value)">
+            </div>
+            <button class="btn btn-gold" onclick="openBookingModal()">+ New Booking</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Booking ID</th>
+                <th>Guest Name</th>
+                <th>Contact</th>
+                <th>Room No.</th>
+                <th>Check-in / Out</th>
+                <th>Room Bill</th>
+                <th>Dining Bill</th>
+                <th>Total Settle</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB: PARTNERS & OWNERS ================= -->
+    <section id="partners" class="tab-content hidden">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><span>🤝</span> Hotel Owners & Partners (मालिक / पार्टनर प्रबंधन)</h2>
+            <div class="card-subtitle">Manage business partners, ownership equity shares (%), capital investments, and real-time revenue profit distribution.</div>
+          </div>
+          <button class="btn btn-gold" onclick="openAddPartnerModal()">+ Add New Partner / Owner</button>
+        </div>
+
+        <!-- Partner Summary KPI Cards -->
+        <div class="stats-grid" style="margin-bottom:18px;">
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">Total Partners</span>
+              <span class="stat-icon">👥</span>
+            </div>
+            <div class="stat-val" id="kpiTotalPartners">0</div>
+            <div class="stat-sub">Registered Equity Holders</div>
+          </div>
+          <div class="stat-card stat-green">
+            <div class="stat-header">
+              <span class="stat-title">Total Equity Share</span>
+              <span class="stat-icon">📊</span>
+            </div>
+            <div class="stat-val" style="color:var(--status-available)" id="kpiTotalEquity">100%</div>
+            <div class="stat-sub" id="kpiEquityStatus">100% Allocated</div>
+          </div>
+          <div class="stat-card stat-blue">
+            <div class="stat-header">
+              <span class="stat-title">Total Capital Invested</span>
+              <span class="stat-icon">💼</span>
+            </div>
+            <div class="stat-val" style="color:#60a5fa" id="kpiTotalInvestment">₹0</div>
+            <div class="stat-sub">Combined Paid-up Capital</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">Total Revenue Pool</span>
+              <span class="stat-icon">💰</span>
+            </div>
+            <div class="stat-val" style="color:var(--gold-300)" id="kpiPartnerRevPool">₹0</div>
+            <div class="stat-sub">Rooms + Dining Combined</div>
+          </div>
+        </div>
+
+        <!-- Equity Distribution Bar -->
+        <div class="occupancy-bar-wrapper" style="margin-bottom:18px;">
+          <div class="occupancy-labels">
+            <span>Partnership Equity Distribution</span>
+            <span id="equityDistributionSummary">Equity Ownership Split</span>
+          </div>
+          <div class="occupancy-progress" id="equityProgressBar" style="height:12px;background:rgba(255,255,255,0.06);"></div>
+          <div class="occupancy-legend" id="equityLegend"></div>
+        </div>
+
+        <!-- Partners Table -->
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Partner / Owner Name</th>
+                <th>Role / Designation</th>
+                <th>Ownership Share (%)</th>
+                <th>Investment (₹)</th>
+                <th>Est. Revenue Share (₹)</th>
+                <th>Contact Info</th>
+                <th>Joined Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="partnersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 6: SETTINGS & DATA ================= -->
+    <section id="settings" class="tab-content hidden">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><span>⚙️</span> System Settings & Data Management</h2>
+            <div class="card-subtitle">Manage hotel properties, backup data, or restore initial demo records.</div>
+          </div>
+        </div>
+
+        <div class="rest-layout">
+          <div>
+            <h3 style="font-family:var(--font-heading);font-size:1.15rem;margin-bottom:14px;color:#fff;">Hotel Property Details</h3>
+            <div class="form-group">
+              <label class="form-label">Hotel Name</label>
+              <input class="input" id="cfgHotelName" value="Grand Royal Palace Hotel & Resort">
+            </div>
+            <div class="form-group">
+              <label class="form-label">GSTIN / Tax ID</label>
+              <input class="input" id="cfgGstin" value="07AAAAA0000A1Z5">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Address & City</label>
+              <input class="input" id="cfgAddress" value="Palace Road, Marine Bay Boulevard, Mumbai - 400001">
+            </div>
+            <div class="input-row input-row-2">
+              <div class="form-group">
+                <label class="form-label">Contact Phone</label>
+                <input class="input" id="cfgPhone" value="+91 22 8899 7700">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Contact Email</label>
+                <input class="input" id="cfgEmail" value="concierge@grandroyalpalace.com">
+              </div>
+            </div>
+            <button class="btn btn-gold" onclick="saveHotelSettings()">Save Hotel Profile</button>
+          </div>
+
+          <div style="background:rgba(0,0,0,0.35);padding:20px;border-radius:var(--radius-md);border:1px solid var(--border-gold);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+              <h3 style="font-family:var(--font-heading);font-size:1.15rem;color:var(--gold-300);">🗄️ Database Management Console</h3>
+              <div id="dbStatusBadge" class="badge badge-available">🟢 IndexedDB Active</div>
+            </div>
+
+            <div style="font-size:0.78rem;color:var(--text-secondary);margin-bottom:14px;" id="dbEngineDescription">
+              Database Engine: <b>Browser IndexedDB + LocalStorage Mirror</b>. Supports transactional structured tables, ACID queries, and offline persistence.
+            </div>
+
+            <!-- Database Tables Matrix -->
+            <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:8px;margin-bottom:16px;">
+              <div class="stat-card" style="padding:10px 12px;">
+                <div class="stat-title">🛏️ Rooms Table</div>
+                <div class="stat-val" style="font-size:1.1rem;" id="dbCountRooms">45 rows</div>
+              </div>
+              <div class="stat-card" style="padding:10px 12px;">
+                <div class="stat-title">📋 Bookings Table</div>
+                <div class="stat-val" style="font-size:1.1rem;color:#60a5fa;" id="dbCountBookings">0 rows</div>
+              </div>
+              <div class="stat-card" style="padding:10px 12px;">
+                <div class="stat-title">🍽️ Dining Orders Table</div>
+                <div class="stat-val" style="font-size:1.1rem;color:var(--status-cleaning);" id="dbCountOrders">0 rows</div>
+              </div>
+              <div class="stat-card" style="padding:10px 12px;">
+                <div class="stat-title">👥 Staff Table</div>
+                <div class="stat-val" style="font-size:1.1rem;" id="dbCountStaff">0 rows</div>
+              </div>
+              <div class="stat-card" style="padding:10px 12px;">
+                <div class="stat-title">🤝 Partners Table</div>
+                <div class="stat-val" style="font-size:1.1rem;color:var(--gold-300);" id="dbCountPartners">0 rows</div>
+              </div>
+              <div class="stat-card" style="padding:10px 12px;">
+                <div class="stat-title">📜 Food Menu Table</div>
+                <div class="stat-val" style="font-size:1.1rem;" id="dbCountMenu">0 rows</div>
+              </div>
+            </div>
+
+            <!-- Database Actions -->
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-gold flex-1" onclick="syncDatabaseManual()">
+                  <span>🔄</span> Sync & Save Database
+                </button>
+                <button class="btn btn-secondary flex-1" onclick="vacuumDatabase()">
+                  <span>🧹</span> Optimize & Vacuum
+                </button>
+              </div>
+
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-secondary flex-1" onclick="exportDataJson()">
+                  <span>💾</span> Export Backup (.json)
+                </button>
+                <label class="btn btn-secondary flex-1" style="cursor:pointer;text-align:center;">
+                  <span>📂</span> Restore Backup
+                  <input type="file" id="importJsonInput" accept=".json" style="display:none" onchange="importDataJson(event)">
+                </label>
+              </div>
+
+              <button class="btn btn-danger" style="margin-top:4px;" onclick="resetToDemoData()">
+                <span>🔄</span> Factory Reset Database (Demo Seed)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= MOBILE BOTTOM NAV ================= -->
+  <nav class="bottom-nav">
+    <div class="b-item active" onclick="switchTab('dashboard', this)">
+      <span>📊</span>Dashboard
+    </div>
+    <div class="b-item" onclick="switchTab('rooms', this)">
+      <span>🛏️</span>Rooms
+    </div>
+    <div class="b-item" onclick="switchTab('restaurant', this)">
+      <span>🍽️</span>Dining
+    </div>
+    <div class="b-item" onclick="switchTab('staff', this)">
+      <span>👥</span>Staff
+    </div>
+    <div class="b-item" onclick="switchTab('bookings', this)">
+      <span>📋</span>Bills
+    </div>
+    <div class="b-item" onclick="switchTab('partners', this)">
+      <span>🤝</span>Owners
+    </div>
+  </nav>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. ROOM DETAILS & 360 TOUR MODAL -->
+  <div class="modal" id="roomModal">
+    <div class="modal-box large">
+      <div class="modal-header">
+        <h3 class="modal-title" id="roomModalTitle">Room Details</h3>
+        <button class="modal-close-btn" onclick="closeRoomModal()">&times;</button>
+      </div>
+
+      <div class="rest-layout" style="gap:14px;">
+        <!-- Left: Image & Virtual Tour -->
+        <div>
+          <div style="position:relative;border-radius:var(--radius-md);overflow:hidden;height:220px;border:1px solid var(--border-gold);">
+            <img id="roomMainImg" src="" style="width:100%;height:100%;object-fit:cover;">
+            <div id="roomModalStatusBadge" style="position:absolute;top:10px;right:10px;"></div>
+          </div>
+
+          <!-- Thumbnails -->
+          <div id="roomThumbsRow" style="display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:4px;"></div>
+
+          <!-- 360 Virtual Interactive View Canvas -->
+          <div class="virtual-tour-canvas-wrap">
+            <canvas id="virtualTourCanvas"></canvas>
+            <div class="virtual-tour-overlay">
+              <span class="virtual-tour-badge">🎥 Interactive 360° Panorama Simulation (Drag to Pan)</span>
+              <button class="btn btn-sm btn-gold" onclick="resetTourView()">Reset View</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Specifications & Quick Actions -->
+        <div>
+          <div style="background:rgba(0,0,0,0.4);border:1px solid var(--border-gold);border-radius:var(--radius-md);padding:14px;margin-bottom:14px;" id="roomDetailSpecs">
+            <!-- Populated via JS -->
+          </div>
+
+          <!-- Room Status Quick Switcher -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:12px;margin-bottom:14px;">
+            <label class="form-label">Set Room Housekeeping Status</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <button class="btn btn-sm btn-success" onclick="setModalRoomStatus('Available')">🟢 Available</button>
+              <button class="btn btn-sm btn-secondary" style="border-color:var(--status-cleaning);color:var(--status-cleaning)" onclick="setModalRoomStatus('Cleaning')">🟡 Housekeeping</button>
+              <button class="btn btn-sm btn-secondary" style="border-color:var(--status-maintenance);color:var(--status-maintenance)" onclick="setModalRoomStatus('Maintenance')">🟣 Maintenance</button>
+              <button class="btn btn-sm btn-danger" onclick="setModalRoomStatus('Occupied')">🔴 Occupied</button>
+            </div>
+          </div>
+
+          <div id="roomModalActions">
+            <!-- Action buttons injected via JS -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div style="display:flex;gap:8px">
-    <button class="gold-btn" onclick="openBooking()">+ Book</button>
-    <button class="gold-btn blue" onclick="openStaff()">+ Staff</button>
-  </div>
-</div>
 
-<div id="dashboard" class="tab">
-  <div class="card">
-    <div class="stats">
-      <div class="stat-card"><h4>TOTAL ROOMS</h4><div class="val" id="totalRooms">45</div></div>
-      <div class="stat-card"><h4>AVAILABLE</h4><div class="val green" id="availVal">0</div></div>
-      <div class="stat-card"><h4>BOOKINGS</h4><div class="val" id="bookCount">0</div></div>
-      <div class="stat-card"><h4>STAFF</h4><div class="val" id="totalStaff">0</div></div>
-      <div class="stat-card"><h4>REVENUE</h4><div class="val" id="revVal">₹0</div></div>
-      <div class="stat-card"><h4>RESTAURANT</h4><div class="val" id="restSale">₹0</div></div>
+  <!-- 2. NEW BOOKING MODAL -->
+  <div class="modal" id="bookingModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">New Guest Reservation</h3>
+        <button class="modal-close-btn" onclick="closeBookingModal()">&times;</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Guest Full Name *</label>
+        <input class="input" id="bGuestName" placeholder="e.g. Vikramaditya Sharma" required>
+      </div>
+
+      <div class="input-row input-row-2">
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input class="input" id="bPhone" placeholder="+91 98765 43210" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="input" id="bEmail" type="email" placeholder="guest@example.com">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Select Room *</label>
+        <select class="input" id="bRoomSelect" onchange="handleRoomSelectChange(this.value)">
+          <option value="">-- Choose an Available Suite --</option>
+        </select>
+      </div>
+
+      <div class="input-row input-row-2">
+        <div class="form-group">
+          <label class="form-label">Check-in Date *</label>
+          <input class="input" id="bCheckIn" type="date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Check-out Date *</label>
+          <input class="input" id="bCheckOut" type="date">
+        </div>
+      </div>
+
+      <div class="input-row input-row-2">
+        <div class="form-group">
+          <label class="form-label">Number of Guests</label>
+          <select class="input" id="bGuestsCount">
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Room Rate / Night (₹)</label>
+          <input class="input" id="bAmount" type="number" readonly>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">ID Proof Type (Govt ID / Passport)</label>
+        <select class="input" id="bIdProof">
+          <option value="Aadhaar Card">Aadhaar Card</option>
+          <option value="Passport">Passport</option>
+          <option value="Driving License">Driving License</option>
+          <option value="Voter ID">Voter ID</option>
+        </select>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:14px;">
+        <button class="btn btn-secondary flex-1" onclick="closeBookingModal()">Cancel</button>
+        <button class="btn btn-gold flex-1" onclick="confirmBooking()">Confirm Reservation</button>
+      </div>
     </div>
   </div>
-  <div class="card"><h3>Live Rooms - Tap for Details + Photos + 3D</h3><div class="room-grid" id="roomGridDash"></div></div>
-</div>
 
-<div id="rooms" class="tab hidden">
-  <div class="card">
-    <div class="filter-row">
-      <button class="gold-btn" onclick="filterRooms('All')">All 45</button>
-      <button class="gold-btn" onclick="filterRooms('Deluxe')">Deluxe 15</button>
-      <button class="gold-btn" onclick="filterRooms('Suite')">Suite 15</button>
-      <button class="gold-btn" onclick="filterRooms('Presidential')">Presidential 15</button>
+  <!-- 3. ADD STAFF MODAL -->
+  <div class="modal" id="staffModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Staff Member</h3>
+        <button class="modal-close-btn" onclick="closeStaffModal()">&times;</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Staff Full Name *</label>
+        <input class="input" id="sName" placeholder="e.g. Sunita Devi" required>
+      </div>
+
+      <div class="input-row input-row-2">
+        <div class="form-group">
+          <label class="form-label">Gender *</label>
+          <select class="input" id="sGender">
+            <option value="Female">👩 Female</option>
+            <option value="Male">👨 Male</option>
+            <option value="Other">🧑 Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Department / Role *</label>
+          <select class="input" id="sRole">
+            <option value="General Manager">General Manager</option>
+            <option value="Front Desk Manager">Front Desk Manager</option>
+            <option value="Receptionist">Receptionist</option>
+            <option value="Housekeeping Supervisor">Housekeeping Supervisor</option>
+            <option value="Housekeeping Staff">Housekeeping Staff</option>
+            <option value="Executive Chef">Executive Chef</option>
+            <option value="Sous Chef">Sous Chef</option>
+            <option value="Food & Beverage Waiter">F&B Waiter</option>
+            <option value="Chief Security Officer">Chief Security Officer</option>
+            <option value="Security Guard">Security Guard</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-row input-row-2">
+        <div class="form-group">
+          <label class="form-label">Joining Date</label>
+          <input class="input" id="sJoinDate" type="date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Shift Timing</label>
+          <select class="input" id="sTiming">
+            <option value="Morning: 7 AM - 3 PM">Morning: 7 AM - 3 PM</option>
+            <option value="General: 9 AM - 6 PM">General: 9 AM - 6 PM</option>
+            <option value="Evening: 3 PM - 11 PM">Evening: 3 PM - 11 PM</option>
+            <option value="Night: 11 PM - 7 AM">Night: 11 PM - 7 AM</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Monthly Salary (₹) *</label>
+        <input class="input" id="sSalary" type="number" placeholder="e.g. 25000" required>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:14px;">
+        <button class="btn btn-secondary flex-1" onclick="closeStaffModal()">Cancel</button>
+        <button class="btn btn-gold flex-1" onclick="saveStaffMember()">Save Staff</button>
+      </div>
     </div>
-    <div class="luxury-grid" id="luxuryRooms"></div>
   </div>
-</div>
 
-<div id="restaurant" class="tab hidden">
-  <div class="card">
-    <h3>🍽️ Restaurant Orders</h3>
-    <div id="restOrders"></div>
-    <div class="rest-form">
-      <select class="input" id="restRoom"></select>
-      <select class="input" id="restItem"><option>Veg Biryani ₹350</option><option>Chicken Curry ₹450</option><option>Paneer Tikka ₹300</option></select>
-      <button class="gold-btn" onclick="addRestOrder()">Add</button>
+  <!-- 4. OFFICIAL GST TAX INVOICE MODAL -->
+  <div class="modal" id="invoiceModal">
+    <div class="modal-box large" style="max-width:850px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Tax Invoice / Bill Settlement</h3>
+        <button class="modal-close-btn" onclick="closeInvoiceModal()">&times;</button>
+      </div>
+
+      <!-- Printable Invoice Area -->
+      <div id="invoicePrintArea" class="invoice-paper">
+        <div class="invoice-header">
+          <div>
+            <div class="invoice-hotel-name" id="invHotelName">Grand Royal Palace</div>
+            <div class="invoice-hotel-sub" id="invHotelDetails">
+              Luxury 5-Star Hotel & Resort<br>
+              Marine Bay Boulevard, Mumbai - 400001<br>
+              GSTIN: 07AAAAA0000A1Z5 | Phone: +91 22 8899 7700
+            </div>
+          </div>
+          <div class="invoice-badge-title">
+            <div class="invoice-title-text">TAX INVOICE</div>
+            <div style="font-size:0.8rem;color:#666;margin-top:4px;" id="invNumber">INV-#0000</div>
+            <div style="font-size:0.75rem;color:#888;" id="invDate">Date: --</div>
+          </div>
+        </div>
+
+        <div class="invoice-meta-grid">
+          <div class="invoice-meta-block">
+            <strong>BILLED TO:</strong><br>
+            <span id="invGuestName">Guest Name</span><br>
+            <span>Phone: </span><span id="invGuestPhone">--</span><br>
+            <span>ID Proof: </span><span id="invGuestId">--</span>
+          </div>
+          <div class="invoice-meta-block">
+            <strong>STAY PARTICULARS:</strong><br>
+            <span>Room Number: </span><b id="invRoomNo">--</b> (<span id="invRoomType">--</span>)<br>
+            <span>Check-in: </span><span id="invCheckIn">--</span><br>
+            <span>Check-out: </span><span id="invCheckOut">--</span> (<span id="invNights">1</span> Night(s))
+          </div>
+        </div>
+
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th style="text-align:center;">Qty / Nights</th>
+              <th style="text-align:right;">Rate (₹)</th>
+              <th style="text-align:right;">Amount (₹)</th>
+            </tr>
+          </thead>
+          <tbody id="invItemsBody"></tbody>
+        </table>
+
+        <div class="invoice-summary-box">
+          <div class="invoice-sum-row">
+            <span>Subtotal:</span>
+            <span id="invSubtotal">₹0</span>
+          </div>
+          <div class="invoice-sum-row">
+            <span>CGST (6%):</span>
+            <span id="invCgst">₹0</span>
+          </div>
+          <div class="invoice-sum-row">
+            <span>SGST (6%):</span>
+            <span id="invSgst">₹0</span>
+          </div>
+          <div class="invoice-sum-row">
+            <span>Luxury Hospitality Cess (2%):</span>
+            <span id="invCess">₹0</span>
+          </div>
+          <div class="invoice-sum-row grand-total">
+            <span>Net Payable:</span>
+            <span id="invGrandTotal">₹0</span>
+          </div>
+        </div>
+
+        <div class="invoice-footer">
+          <p>Thank you for choosing Grand Royal Palace Hotel & Resort. We look forward to welcoming you again.</p>
+          <p style="margin-top:4px;">* This is a computer-generated tax invoice and does not require a physical signature.</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:18px;" class="invoice-actions">
+        <button class="btn btn-secondary" onclick="closeInvoiceModal()">Close</button>
+        <button class="btn btn-gold" onclick="window.print()">
+          <span>🖨️</span> Print / Save PDF Invoice
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
-<div id="staff" class="tab hidden">
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center"><h3>Staff - Payment, Timing, Gender</h3><button class="gold-btn" onclick="openStaff()">+ Add</button></div>
-    <div class="table-wrap"><table><thead><tr><th>Name</th><th>Gender</th><th>Role</th><th>Joining</th><th>Timing</th><th>Salary</th><th>Status</th></tr></thead><tbody id="empTable"></tbody></table></div>
+  <!-- 5. EDIT ROOM PRICE / TARIFF MODAL -->
+  <div class="modal" id="editRoomPriceModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Room Tariff / Price</h3>
+        <button class="modal-close-btn" onclick="closeEditRoomPriceModal()">&times;</button>
+      </div>
+
+      <div style="background:rgba(0,0,0,0.3);padding:14px;border-radius:var(--radius-md);margin-bottom:14px;border:1px solid var(--border-gold);">
+        <div style="font-size:0.75rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">Target Room</div>
+        <div style="font-size:1.15rem;font-weight:700;color:#fff;margin-top:2px;" id="editPriceRoomTitle">Room 101 (Deluxe)</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">New Rate Per Night (₹) *</label>
+        <input class="input" id="editPriceInput" type="number" min="500" step="100" placeholder="e.g. 5000" required>
+      </div>
+
+      <div class="form-group" style="display:flex;align-items:center;gap:10px;margin-top:12px;">
+        <input type="checkbox" id="editPriceApplyAll" style="width:18px;height:18px;accent-color:var(--gold-500);cursor:pointer;">
+        <label for="editPriceApplyAll" style="font-size:0.82rem;color:var(--gold-300);cursor:pointer;" id="editPriceApplyAllLabel">
+          Apply this price to ALL rooms in this category
+        </label>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:20px;">
+        <button class="btn btn-secondary flex-1" onclick="closeEditRoomPriceModal()">Cancel</button>
+        <button class="btn btn-gold flex-1" onclick="saveRoomPrice()">Save & Update Price</button>
+      </div>
+    </div>
   </div>
-</div>
 
-<div id="bookings" class="tab hidden">
-  <div class="card"><h3>Bookings</h3><div class="table-wrap"><table><thead><tr><th>Guest</th><th>Room</th><th>Amount</th><th>Bill</th></tr></thead><tbody id="bookTable"></tbody></table></div></div>
-</div>
+  <!-- 6. BULK CATEGORY TARIFFS MODAL -->
+  <div class="modal" id="bulkPriceModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Suite Category Tariffs</h3>
+        <button class="modal-close-btn" onclick="closeBulkPriceModal()">&times;</button>
+      </div>
 
-<div class="bottom-nav">
-  <div class="b-item active" onclick="switchTabMobile('dashboard',this)"><span>📊</span>Dashboard</div>
-  <div class="b-item" onclick="switchTabMobile('rooms',this)"><span>🛏️</span>Rooms</div>
-  <div class="b-item" onclick="switchTabMobile('restaurant',this)"><span>🍽️</span>Food</div>
-  <div class="b-item" onclick="switchTabMobile('staff',this)"><span>👷</span>Staff</div>
-  <div class="b-item" onclick="switchTabMobile('bookings',this)"><span>📅</span>Books</div>
-</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:16px;">
+        Update standard nightly pricing across all 45 luxury rooms by suite category:
+      </div>
 
-<!-- MODALS -->
-<div class="modal" id="roomModal"><div class="modal-box large"><h3 id="roomTitle"></h3><img id="roomImg" class="room-main-img"><div class="detail-grid"><div id="roomThumbs"></div><div id="roomInfo"></div></div><button class="gold-btn full" onclick="closeRoom()">Close</button></div></div>
-<div class="modal" id="bookingModal"><div class="modal-box"><h3>New Booking</h3><input class="input" id="gName" placeholder="Guest Name"><input class="input" id="gPhone" placeholder="Phone"><select class="input" id="rSelect"></select><input class="input" id="amt" placeholder="Amount"><div class="flex-row"><button class="input" onclick="closeBooking()">Cancel</button><button class="gold-btn flex-1" onclick="saveBooking()">Confirm</button></div></div></div>
-<div class="modal" id="staffModal"><div class="modal-box"><h3>Add Staff</h3><input class="input" id="eName" placeholder="Name"><select class="input" id="eGender"><option value="">Gender</option><option value="Female">👩 Female - Ladki</option><option value="Male">👨 Male - Ladka</option></select><select class="input" id="eRole"><option>Manager</option><option>Receptionist</option><option>Housekeeping</option><option>Chef</option><option>Security</option></select><input class="input" id="eJoin" type="date"><select class="input" id="eTiming"><option>9 AM - 6 PM</option><option>6 PM - 3 AM</option><option>9 PM - 9 AM Night</option></select><input class="input" id="eSalary" type="number" placeholder="Salary ₹"><div class="flex-row"><button class="input" onclick="closeStaff()">Cancel</button><button class="gold-btn flex-1" onclick="saveEmp()">Save</button></div></div></div>
+      <div class="form-group">
+        <label class="form-label">Deluxe Rooms (15 Rooms: 101 - 115) Rate / Night (₹)</label>
+        <input class="input" id="bulkPriceDeluxe" type="number" step="100">
+      </div>
 
-<script src="script.js"></script>
+      <div class="form-group">
+        <label class="form-label">Executive Suites (15 Rooms: 201 - 215) Rate / Night (₹)</label>
+        <input class="input" id="bulkPriceExecutive" type="number" step="100">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Presidential Suites (15 Rooms: 301 - 315) Rate / Night (₹)</label>
+        <input class="input" id="bulkPricePresidential" type="number" step="100">
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:20px;">
+        <button class="btn btn-secondary flex-1" onclick="closeBulkPriceModal()">Cancel</button>
+        <button class="btn btn-gold flex-1" onclick="saveBulkPrices()">Update All Category Tariffs</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. RESTAURANT MENU & PRICE MANAGER MODAL -->
+  <div class="modal" id="menuManagerModal">
+    <div class="modal-box large">
+      <div class="modal-header">
+        <h3 class="modal-title">Dining Menu & Pricing Manager</h3>
+        <button class="modal-close-btn" onclick="closeMenuManagerModal()">&times;</button>
+      </div>
+
+      <div class="rest-layout" style="gap:16px;">
+        <!-- Left: Current Menu Items & Price Editor -->
+        <div>
+          <h4 style="font-size:0.9rem;color:var(--gold-300);margin-bottom:8px;">Edit Existing Dish Prices</h4>
+          <div style="max-height:360px;overflow-y:auto;border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:6px;">
+            <table class="menu-manager-table">
+              <thead>
+                <tr>
+                  <th>Dish Name</th>
+                  <th>Category</th>
+                  <th>Price (₹)</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="menuEditTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right: Add New Dish Form -->
+        <div style="background:rgba(0,0,0,0.3);padding:16px;border-radius:var(--radius-md);border:1px solid var(--border-gold);">
+          <h4 style="font-size:0.9rem;color:var(--gold-300);margin-bottom:12px;">+ Add New Menu Item</h4>
+          
+          <div class="form-group">
+            <label class="form-label">Dish Name *</label>
+            <input class="input" id="newDishName" placeholder="e.g. Royal Dal Makhani">
+          </div>
+
+          <div class="input-row input-row-2">
+            <div class="form-group">
+              <label class="form-label">Category *</label>
+              <select class="input" id="newDishCategory">
+                <option value="Starters">Starters</option>
+                <option value="Main Course">Main Course</option>
+                <option value="Desserts">Desserts</option>
+                <option value="Beverages">Beverages</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Price (₹) *</label>
+              <input class="input" id="newDishPrice" type="number" placeholder="450">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Brief Description</label>
+            <input class="input" id="newDishDesc" placeholder="e.g. Traditional slow-cooked lentils">
+          </div>
+
+          <button class="btn btn-gold btn-block" style="margin-top:10px;" onclick="addNewDishToMenu()">
+            Add Dish to Menu
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. ADD / EDIT PARTNER & OWNER MODAL -->
+  <div class="modal" id="partnerModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="partnerModalTitle">Add Partner / Owner</h3>
+        <button class="modal-close-btn" onclick="closePartnerModal()">&times;</button>
+      </div>
+
+      <input type="hidden" id="partnerEditId">
+
+      <div class="form-group">
+        <label class="form-label">Partner / Owner Full Name *</label>
+        <input class="input" id="pName" placeholder="e.g. Rajesh Singhania" required>
+      </div>
+
+      <div class="input-row input-row-2">
+        <div class="form-group">
+          <label class="form-label">Role / Designation *</label>
+          <select class="input" id="pRole">
+            <option value="Managing Partner">Managing Partner (प्रबंधक पार्टनर)</option>
+            <option value="Executive Director">Executive Director (निदेशक)</option>
+            <option value="Co-Owner">Co-Owner (सह-मालिक)</option>
+            <option value="Investor Partner">Investor Partner (निवेशक)</option>
+            <option value="Silent / Sleeping Partner">Silent / Sleeping Partner</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ownership Share (%) *</label>
+          <input class="input" id="pShare" type="number" min="1" max="100" step="0.5" placeholder="e.g. 50" required>
+        </div>
+      </div>
+
+      <div class="input-row input-row-2">
+        <div class="form-group">
+          <label class="form-label">Capital Investment (₹)</label>
+          <input class="input" id="pInvestment" type="number" step="10000" placeholder="e.g. 5000000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Joining Date</label>
+          <input class="input" id="pJoinDate" type="date">
+        </div>
+      </div>
+
+      <div class="input-row input-row-2">
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input class="input" id="pPhone" placeholder="+91 98200 11223">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="input" id="pEmail" type="email" placeholder="owner@hotel.com">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Notes / Agreement Details</label>
+        <input class="input" id="pNotes" placeholder="e.g. Registered Partnership Deed Ref #402">
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:20px;">
+        <button class="btn btn-secondary flex-1" onclick="closePartnerModal()">Cancel</button>
+        <button class="btn btn-gold flex-1" onclick="savePartner()">Save Partner Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>
