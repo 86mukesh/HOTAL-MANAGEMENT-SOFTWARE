@@ -54,16 +54,21 @@ A comprehensive, state-of-the-art **Property Management System (PMS)** and **Foo
 - **Check-in Engine**: Guest registration with contact information, ID proof (Aadhaar, Passport, Driving License), guest count, check-in/out dates, and automated night/rate calculation.
 - **Check-Out & Settlement**: Settle total room bill + all dining orders in one click; automatically releases the room to Housekeeping (`Cleaning`).
 - **Official GST Tax Invoice**:
-  - Itemized breakdown of room tariff and room service dining charges.
+  - Printable guest and stay details, room tariff, and itemized room-service orders when order records are available.
   - Indian GST calculation: CGST (6%), SGST (6%), and Luxury Hospitality Cess (2%).
-  - One-click print / save to PDF with dedicated `@media print` styling (no headers, footers, or UI buttons on paper).
+  - Selectable 10% and 20% invoice offers; the chosen discount is saved with the booking and applied before GST.
+  - Draw and save a guest electronic signature with a mouse, stylus, or touch screen; the saved signature appears on the invoice and stays with its booking.
+  - One-click print / save to PDF with dedicated responsive `@media print` styling.
 
 ### 7. 🗄️ Dual-Mode Database Engine & Central Server
 - **Browser IndexedDB Engine**: High-performance, multi-megabyte structured database built into the browser (`GrandRoyalPalaceDB`). Supports ACID transactions across separate Object Stores (`rooms`, `bookings`, `orders`, `staff`, `partners`, `menu`, `settings`).
+- **Browser storage**: The app also mirrors data in LocalStorage for quick startup and offline use. Browser-only mode stores data on that device and browser profile.
 - **Central Node.js REST API Server (`server.js`)**:
   - Run the hotel database on a central machine so multiple computers, front-desk staff, and managers can access the exact same data simultaneously!
-  - Persistent disk file: `hotel_database.json`.
-  - Zero-dependency architecture (pure Node.js standard library, no npm install required).
+  - Optional MySQL persistence with separate tables for rooms, bookings, dining orders, staff, partners, menu items, hotel settings, and database metadata.
+  - JSON file persistence (`hotel_database.json`) remains available when MySQL is not configured.
+  - When the central server is connected, saved records (including booking signatures) are synced to the server's configured database.
+  - Dining POS dish photos can be uploaded through `POST /api/menu-image`; uploaded files are stored under `uploads/menu-images/`, and their URLs are saved with menu items through the existing `/api/menu` and `/api/data` APIs. In browser-only mode, compressed photos stay in that browser's local data.
 - **1-Click Server Launcher (`start-server.bat`)**: Double-click on Windows to start the database server instantly on `http://localhost:3000`.
 - **Database Management Console**: Real-time table row counters, manual database synchronization, database optimization & vacuuming, JSON export & restore.
 
@@ -76,9 +81,20 @@ A comprehensive, state-of-the-art **Property Management System (PMS)** and **Foo
 2. The system automatically initializes the **Browser IndexedDB Database** with full offline persistence.
 
 ### Option 2: Central Database Server (Multi-Device / Network)
-1. Double-click **`start-server.bat`** (or run `node server.js` in terminal).
-2. Open `http://localhost:3000` in any web browser on your computer or local network!
-3. The software will connect to the central persistent disk database (`hotel_database.json`).
+1. Install the project dependencies by running `npm install`.
+2. To use MySQL, create a database and configure the connection in a `.env` file (see [MySQL setup](#mysql-setup)). Without MySQL settings, the server uses `hotel_database.json`.
+3. Double-click **`start-server.bat`** (or run `npm start` in terminal).
+4. Open `http://localhost:3000` in any web browser on your computer or local network!
+5. The software connects to the central database and loads its saved data. When connecting to an empty server for the first time, the current browser data is copied to it.
+
+### MySQL Setup
+1. Create a database in MySQL, for example:
+   ```sql
+   CREATE DATABASE hotel_management CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   ```
+2. Copy `.env.example` to `.env` and set `MYSQL_HOST`, `MYSQL_PORT`, `MYSQL_DATABASE`, `MYSQL_USER`, and `MYSQL_PASSWORD` for your MySQL server.
+3. Run `npm install` and then start the app. The server creates its required tables automatically. Keep `.env` private; it contains database credentials.
+4. Existing records from `hotel_database.json` are imported automatically when the configured MySQL tables are empty.
 
 ---
 
@@ -89,8 +105,9 @@ Hotel Management Software/
 ├── index.html          # Clean HTML5 UI, modals, database management console
 ├── style.css           # Imperial Gold luxury styling, responsive grid & print stylesheet
 ├── script.js           # Core PMS logic, IndexedDB client database & REST API connector
-├── server.js           # Pure Node.js Central REST Database Server (zero-dependency)
+├── server.js           # Central REST Database Server (MySQL or JSON-file storage)
 ├── start-server.bat    # 1-Click Windows launcher for the database server
 ├── package.json        # Node.js project configuration
+├── .env.example        # MySQL connection settings template
 └── README.md           # Documentation & user manual
 ```
