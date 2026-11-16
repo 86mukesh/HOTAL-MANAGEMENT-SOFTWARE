@@ -1,0 +1,1521 @@
+{
+  "version": "3.0",
+  "createdAt": "2026-11-09T19:44:41.045Z",
+  "lastModified": "2026-11-10T16:48:47.583Z",
+  "settings": {
+    "hotelName": "Grand Royal Palace Hotel & Resort",
+    "gstin": "07AAAAA0000A1Z5",
+    "address": "Palace Road, Marine Bay Boulevard, Mumbai - 400001",
+    "phone": "+91 22 8899 7700",
+    "email": "concierge@grandroyalpalace.com"
+  },
+  "rooms": [
+    {
+      "room_no": 101,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Cleaning",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 102,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 103,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 104,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 105,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Occupied",
+      "currentGuest": "Aarav Singhania",
+      "bookingId": "BK-1002"
+    },
+    {
+      "room_no": 106,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 107,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 108,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 109,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 110,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 111,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 112,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 113,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 114,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 115,
+      "floor": 1,
+      "type": "Deluxe",
+      "price": 4500,
+      "size": "380 sq.ft.",
+      "bed": "King Size Plush Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "City Skyline View",
+        "High-speed Wi-Fi 6",
+        "4K Smart TV",
+        "Italian Marble Bath",
+        "Rain Shower",
+        "Espresso Bar"
+      ],
+      "status": "Cleaning",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 201,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 202,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 203,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Occupied",
+      "currentGuest": "Kavita Nair",
+      "bookingId": "BK-1003"
+    },
+    {
+      "room_no": 204,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 205,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 206,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 207,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Cleaning",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 208,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 209,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 210,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 211,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 212,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Occupied",
+      "currentGuest": "Dr. Rohan Merchant",
+      "bookingId": "BK-1004"
+    },
+    {
+      "room_no": 213,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 214,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 215,
+      "floor": 2,
+      "type": "Executive Suite",
+      "price": 9500,
+      "size": "620 sq.ft.",
+      "bed": "Imperial California Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Ocean Sunset Balcony",
+        "Separate Living Lounge",
+        "Luxury Mini-Bar",
+        "Deep Soaking Tub",
+        "Executive Workstation",
+        "Butler Service"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 301,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Occupied",
+      "currentGuest": "Prince Al-Hussaini",
+      "bookingId": "BK-1005"
+    },
+    {
+      "room_no": 302,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 303,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 304,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 305,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 306,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 307,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 308,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 309,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 310,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 311,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 312,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 313,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 314,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Available",
+      "currentGuest": null,
+      "bookingId": null
+    },
+    {
+      "room_no": 315,
+      "floor": 3,
+      "type": "Presidential Suite",
+      "price": 18000,
+      "size": "1,150 sq.ft.",
+      "bed": "Royal Emperor Bed",
+      "photos": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80"
+      ],
+      "features": [
+        "Panoramic Penthouse Views",
+        "Private Jacuzzi & Spa",
+        "Dining Room for 8",
+        "Walk-in Dressing Suite",
+        "24/7 Dedicated Butler",
+        "Limousine Airport Transfer"
+      ],
+      "status": "Maintenance",
+      "currentGuest": null,
+      "bookingId": null
+    }
+  ],
+  "bookings": [
+    {
+      "id": "BK-3211",
+      "guest": "kajal kumari",
+      "phone": "9632584147",
+      "email": "dedwdwedwe@gmail.com",
+      "room": 115,
+      "type": "Deluxe",
+      "checkIn": "2026-11-09",
+      "checkOut": "2026-11-10",
+      "nights": 1,
+      "rate": 4500,
+      "roomAmount": 4500,
+      "diningAmount": 0,
+      "idProof": "Passport",
+      "guestsCount": 4,
+      "status": "Checked-Out"
+    },
+    {
+      "id": "BK-1001",
+      "guest": "Rajesh Mehra",
+      "phone": "+91 98201 44556",
+      "email": "rajesh.mehra@corporation.com",
+      "room": 101,
+      "type": "Deluxe",
+      "checkIn": "2026-11-09",
+      "checkOut": "2026-11-11",
+      "nights": 2,
+      "rate": 4500,
+      "roomAmount": 9000,
+      "diningAmount": 1170,
+      "idProof": "Aadhaar Card",
+      "guestsCount": 2,
+      "status": "Checked-Out",
+      "signature": "data:image/png;base64,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",
+      "signatureAt": "2026-11-10T16:48:47.569Z"
+    },
+    {
+      "id": "BK-1002",
+      "guest": "Aarav Singhania",
+      "phone": "+91 99887 11223",
+      "email": "aarav.singhania@fintech.io",
+      "room": 105,
+      "type": "Deluxe",
+      "checkIn": "2026-11-09",
+      "checkOut": "2026-11-11",
+      "nights": 1,
+      "rate": 4500,
+      "roomAmount": 4500,
+      "diningAmount": 520,
+      "idProof": "Passport",
+      "guestsCount": 1,
+      "status": "Checked-In"
+    },
+    {
+      "id": "BK-1003",
+      "guest": "Kavita Nair",
+      "phone": "+91 97123 45678",
+      "email": "kavita.nair@voyages.org",
+      "room": 203,
+      "type": "Executive Suite",
+      "checkIn": "2026-11-09",
+      "checkOut": "2026-11-13",
+      "nights": 4,
+      "rate": 9500,
+      "roomAmount": 38000,
+      "diningAmount": 2260,
+      "idProof": "Driving License",
+      "guestsCount": 2,
+      "status": "Checked-In"
+    },
+    {
+      "id": "BK-1004",
+      "guest": "Dr. Rohan Merchant",
+      "phone": "+91 98450 78901",
+      "email": "rohan.merchant@medcare.org",
+      "room": 212,
+      "type": "Executive Suite",
+      "checkIn": "2026-11-09",
+      "checkOut": "2026-11-11",
+      "nights": 2,
+      "rate": 9500,
+      "roomAmount": 19000,
+      "diningAmount": 0,
+      "idProof": "Aadhaar Card",
+      "guestsCount": 2,
+      "status": "Checked-In"
+    },
+    {
+      "id": "BK-1005",
+      "guest": "Prince Al-Hussaini",
+      "phone": "+971 50 1234567",
+      "email": "delegation@royalholding.ae",
+      "room": 301,
+      "type": "Presidential Suite",
+      "checkIn": "2026-11-09",
+      "checkOut": "2026-11-13",
+      "nights": 5,
+      "rate": 18000,
+      "roomAmount": 90000,
+      "diningAmount": 4200,
+      "idProof": "Diplomatic Passport",
+      "guestsCount": 3,
+      "status": "Checked-In"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-955",
+      "room": 203,
+      "items": [
+        {
+          "id": 1,
+          "name": "Truffle Paneer Tikka",
+          "price": 420,
+          "qty": 1
+        }
+      ],
+      "total": 420,
+      "date": "2026-11-09",
+      "time": "02:13 am",
+      "billedToRoom": true
+    },
+    {
+      "id": "ORD-501",
+      "room": 101,
+      "items": [
+        {
+          "name": "Dum Pukht Awadhi Biryani",
+          "qty": 1,
+          "price": 650
+        },
+        {
+          "name": "Paneer Makhani Grand Cru",
+          "qty": 1,
+          "price": 520
+        }
+      ],
+      "total": 1170,
+      "date": "2026-11-09",
+      "time": "19:42",
+      "billedToRoom": true
+    },
+    {
+      "id": "ORD-502",
+      "room": 105,
+      "items": [
+        {
+          "name": "Paneer Makhani Grand Cru",
+          "qty": 1,
+          "price": 520
+        }
+      ],
+      "total": 520,
+      "date": "2026-11-09",
+      "time": "20:10",
+      "billedToRoom": true
+    },
+    {
+      "id": "ORD-503",
+      "room": 203,
+      "items": [
+        {
+          "name": "Royal Galouti Kebab",
+          "qty": 2,
+          "price": 1160
+        },
+        {
+          "name": "Wild Mushroom Risotto",
+          "qty": 1,
+          "price": 680
+        }
+      ],
+      "total": 1840,
+      "date": "2026-11-09",
+      "time": "20:30",
+      "billedToRoom": true
+    },
+    {
+      "id": "ORD-504",
+      "room": 301,
+      "items": [
+        {
+          "name": "Pan-Seared Atlantic Salmon",
+          "qty": 2,
+          "price": 2300
+        },
+        {
+          "name": "Belgian Dark Chocolate Mousse",
+          "qty": 5,
+          "price": 1900
+        }
+      ],
+      "total": 4200,
+      "date": "2026-11-09",
+      "time": "20:55",
+      "billedToRoom": true
+    }
+  ],
+  "staff": [
+    {
+      "id": 101,
+      "name": "Vikram Rajput",
+      "gender": "Male",
+      "role": "General Manager",
+      "join": "2021-03-15",
+      "timing": "General: 9 AM - 6 PM",
+      "salary": 85000,
+      "status": "Paid"
+    },
+    {
+      "id": 102,
+      "name": "Ananya Deshmukh",
+      "gender": "Female",
+      "role": "Front Desk Manager",
+      "join": "2022-06-01",
+      "timing": "Morning: 7 AM - 3 PM",
+      "salary": 42000,
+      "status": "Paid"
+    },
+    {
+      "id": 103,
+      "name": "Sunita Devi",
+      "gender": "Female",
+      "role": "Housekeeping Supervisor",
+      "join": "2022-10-12",
+      "timing": "Morning: 7 AM - 3 PM",
+      "salary": 28000,
+      "status": "Paid"
+    },
+    {
+      "id": 104,
+      "name": "Chef Sanjeev Anand",
+      "gender": "Male",
+      "role": "Executive Chef",
+      "join": "2021-08-20",
+      "timing": "General: 9 AM - 6 PM",
+      "salary": 75000,
+      "status": "Paid"
+    },
+    {
+      "id": 105,
+      "name": "Ramesh Kumar",
+      "gender": "Male",
+      "role": "Chief Security Officer",
+      "join": "2022-01-10",
+      "timing": "Night: 11 PM - 7 AM",
+      "salary": 32000,
+      "status": "Pending"
+    },
+    {
+      "id": 106,
+      "name": "Pooja Verma",
+      "gender": "Female",
+      "role": "Receptionist",
+      "join": "2023-04-18",
+      "timing": "Evening: 3 PM - 11 PM",
+      "salary": 30000,
+      "status": "Paid"
+    },
+    {
+      "id": 107,
+      "name": "Mahesh Patil",
+      "gender": "Male",
+      "role": "Housekeeping Staff",
+      "join": "2023-07-05",
+      "timing": "Morning: 7 AM - 3 PM",
+      "salary": 18000,
+      "status": "Pending"
+    }
+  ],
+  "partners": [
+    {
+      "id": 1,
+      "name": "Rajesh Singhania",
+      "role": "Managing Partner",
+      "share": 50,
+      "investment": 5000000,
+      "phone": "+91 98200 11223",
+      "email": "rajesh.singhania@grandroyal.com",
+      "joinDate": "2020-01-15",
+      "notes": "Founder & Managing Director"
+    },
+    {
+      "id": 2,
+      "name": "Vikramaditya Oberoi",
+      "role": "Executive Director",
+      "share": 30,
+      "investment": 3000000,
+      "phone": "+91 98200 44556",
+      "email": "vikram.oberoi@grandroyal.com",
+      "joinDate": "2021-06-01",
+      "notes": "Operations & Strategy Head"
+    },
+    {
+      "id": 3,
+      "name": "Sanjay Malhotra",
+      "role": "Investor Partner",
+      "share": 20,
+      "investment": 2000000,
+      "phone": "+91 98200 77889",
+      "email": "sanjay.malhotra@grandroyal.com",
+      "joinDate": "2022-03-10",
+      "notes": "Capital Investment Partner"
+    }
+  ],
+  "menu": [
+    {
+      "id": 1,
+      "name": "Truffle Paneer Tikka",
+      "category": "Starters",
+      "price": 420,
+      "desc": "Cottage cheese marinated with black truffle glaze & mint relish"
+    },
+    {
+      "id": 2,
+      "name": "Royal Galouti Kebab",
+      "category": "Starters",
+      "price": 580,
+      "desc": "Melt-in-mouth lamb kebabs served on saffron sheermal"
+    },
+    {
+      "id": 3,
+      "name": "Crispy Calamari Peri-Peri",
+      "category": "Starters",
+      "price": 620,
+      "desc": "Golden batter calamari rings with lemon garlic aioli"
+    },
+    {
+      "id": 4,
+      "name": "Caesar Salad with Smoked Herb",
+      "category": "Starters",
+      "price": 390,
+      "desc": "Crisp romaine, parmesan shavings, garlic croutons"
+    },
+    {
+      "id": 5,
+      "name": "Dum Pukht Awadhi Biryani",
+      "category": "Main Course",
+      "price": 650,
+      "desc": "Fragrant basmati rice slow-cooked with spiced meat & saffron"
+    },
+    {
+      "id": 6,
+      "name": "Paneer Makhani Grand Cru",
+      "category": "Main Course",
+      "price": 520,
+      "desc": "Slow simmered rich buttery tomato cream gravy with fresh herbs"
+    },
+    {
+      "id": 7,
+      "name": "Murgh Lababdar",
+      "category": "Main Course",
+      "price": 640,
+      "desc": "Charcoal chicken tikka in spiced tomato and onion cashew gravy"
+    },
+    {
+      "id": 8,
+      "name": "Dal Bukhara Special",
+      "category": "Main Course",
+      "price": 460,
+      "desc": "Overnight charcoal simmered black lentils finished with cream"
+    },
+    {
+      "id": 9,
+      "name": "Wild Mushroom Risotto",
+      "category": "Main Course",
+      "price": 680,
+      "desc": "Arborio rice, porcini mushrooms, white wine & parmesan"
+    },
+    {
+      "id": 10,
+      "name": "Pan-Seared Atlantic Salmon",
+      "category": "Main Course",
+      "price": 1150,
+      "desc": "Asparagus spear, mashed potato, lemon dill velouté"
+    },
+    {
+      "id": 11,
+      "name": "Saffron Shahi Tukda & Rabdi",
+      "category": "Desserts",
+      "price": 320,
+      "desc": "Crisp brioche drenched in saffron cardamon reduced milk"
+    },
+    {
+      "id": 12,
+      "name": "Belgian Dark Chocolate Mousse",
+      "category": "Desserts",
+      "price": 380,
+      "desc": "70% Valrhona dark chocolate with gold leaf garnish"
+    },
+    {
+      "id": 13,
+      "name": "New York Cheesecake",
+      "category": "Desserts",
+      "price": 360,
+      "desc": "Baked cream cheese with raspberry compote"
+    },
+    {
+      "id": 14,
+      "name": "Imperial Masala Chai",
+      "category": "Beverages",
+      "price": 180,
+      "desc": "Organic Assam leaf tea brewed with fresh spices and milk"
+    },
+    {
+      "id": 15,
+      "name": "Single Origin Espresso",
+      "category": "Beverages",
+      "price": 220,
+      "desc": "Artisanal roast Arabica double shot"
+    },
+    {
+      "id": 16,
+      "name": "Fresh Mint Lime Soda",
+      "category": "Beverages",
+      "price": 200,
+      "desc": "Sweet & salted sparkling cooler with garden mint"
+    },
+    {
+      "id": 17,
+      "name": "Royal Passion Fruit Mojito",
+      "category": "Beverages",
+      "price": 340,
+      "desc": "Crushed mint, passion fruit pulp, crushed ice & fizz"
+    }
+  ]
+}
