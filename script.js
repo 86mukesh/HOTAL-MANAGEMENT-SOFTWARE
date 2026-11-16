@@ -323,6 +323,7 @@ let state = {
   dashSearchQuery: '',
   bookingSearchQuery: ''
 };
+let pendingNewDishPhoto = '';
 
 // Initialize State from LocalStorage
 function initState() {
@@ -361,7 +362,7 @@ function initState() {
   saveAllState();
 }
 
-function saveAllState() {
+function saveAllState(syncServer = true) {
   localStorage.setItem(STORAGE_KEY_ROOMS, JSON.stringify(state.rooms));
   localStorage.setItem(STORAGE_KEY_BOOKINGS, JSON.stringify(state.bookings));
   localStorage.setItem(STORAGE_KEY_ORDERS, JSON.stringify(state.orders));
@@ -374,7 +375,7 @@ function saveAllState() {
   saveToIndexedDB();
 
   // If central server is connected, background sync to disk database
-  if (state.serverConnected) {
+  if (syncServer && state.serverConnected) {
     const payload = {
       rooms: state.rooms,
       bookings: state.bookings,
@@ -388,7 +389,9 @@ function saveAllState() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).catch(err => console.warn('[Background Server Sync Warning]', err));
+    }).then(res => {
+      if (!res.ok) throw new Error(`Server sync failed (${res.status})`);
+    }).catch(err => console.error('[Background Server Sync Error]', err));
   }
 
   updateDatabaseConsole();
@@ -591,6 +594,7 @@ function renderDashboardGrid() {
       <div class="room-no">${room.room_no}</div>
       <div class="room-type-tag">${room.type.replace(' Suite', '')}</div>
       ${guestDisplay}
+      <button class="room-edit-btn" onclick="editRoomFromCard(event, ${room.room_no})" aria-label="Edit room ${room.room_no}">✏️ Edit Room</button>
     `;
 
     grid.appendChild(card);
@@ -650,7 +654,6 @@ function renderCatalog() {
             <h3 class="luxury-title">${room.type} ${room.room_no}</h3>
             <div style="display:flex;align-items:center;gap:6px;">
               <div class="luxury-price">₹${room.price.toLocaleString('en-IN')}<span>/night</span></div>
-              <button class="price-edit-tag" title="Edit Tariff" onclick="openEditRoomPriceModal(${room.room_no})">✏️</button>
             </div>
           </div>
           <div style="font-size:0.75rem; color:var(--text-secondary); margin-bottom: 6px;">
@@ -663,6 +666,12 @@ function renderCatalog() {
         <div class="luxury-actions">
           <button class="btn btn-secondary btn-sm flex-1" onclick="openRoomModal(${room.room_no})">
             🔍 Details & 360°
+          </button>
+          <button class="btn btn-secondary btn-sm flex-1" onclick="openEditRoomModal(${room.room_no})">
+            ✏️ Edit Room
+          </button>
+          <button class="btn btn-secondary btn-sm flex-1" onclick="openEditRoomPriceModal(${room.room_no})">
+            ✏️ Edit Price
           </button>
           ${room.status === 'Available' 
             ? `<button class="btn btn-gold btn-sm flex-1" onclick="prefillBookingForRoom(${room.room_no})">Book Suite</button>`
@@ -687,6 +696,11 @@ function filterCatalogType(type, btn) {
 function filterCatalogStatus(status, btn) {
   state.activeFilterCatalogStatus = status;
   renderCatalog();
+}
+
+function editRoomFromCard(event, roomNo) {
+  event.stopPropagation();
+  openEditRoomModal(roomNo);
 }
 
 /* ============================================================================
@@ -717,18 +731,67 @@ function renderMenuGrid() {
     const card = document.createElement('div');
     card.className = 'menu-item-card';
     card.onclick = () => addPosItem(item);
-    card.innerHTML = `
-      <div>
-        <div class="menu-item-name">${item.name}</div>
-        <div class="menu-item-desc">${item.desc}</div>
-      </div>
-      <div class="menu-item-bottom">
-        <span class="menu-item-price">₹${item.price}</span>
-        <button class="btn btn-gold btn-sm" style="padding:3px 8px;">+ Add</button>
-      </div>
-    `;
+    card.appendChild(createMenuImage(item, 'menu-item-photo'));
+
+    const content = document.createElement('div');
+    content.className = 'menu-item-content';
+    const details = document.createElement('div');
+    const name = document.createElement('div');
+    name.className = 'menu-item-name';
+    name.textContent = item.name || 'Menu item';
+    const description = document.createElement('div');
+    description.className = 'menu-item-desc';
+    description.textContent = item.desc || '';
+    details.append(name, description);
+
+    const bottom = document.createElement('div');
+    bottom.className = 'menu-item-bottom';
+    const price = document.createElement('span');
+    price.className = 'menu-item-price';
+    price.textContent = `₹${Number(item.price) || 0}`;
+    const addButton = document.createElement('button');
+    addButton.className = 'btn btn-gold btn-sm';
+    addButton.style.padding = '3px 8px';
+    addButton.textContent = '+ Add';
+    bottom.append(price, addButton);
+    content.append(details, bottom);
+    card.appendChild(content);
     container.appendChild(card);
   });
+}
+
+function getMenuImageUrl(image) {
+  if (typeof image !== 'string' || !image) return '';
+  if (/^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(image)) return image;
+
+  try {
+    const parsed = new URL(image, window.location.origin);
+    if (parsed.protocol === 'https:' || parsed.origin === window.location.origin) return parsed.href;
+  } catch (err) {
+    return '';
+  }
+  return '';
+}
+
+function createMenuImage(item, className) {
+  const wrapper = document.createElement('div');
+  wrapper.className = className;
+  const placeholder = document.createElement('span');
+  placeholder.className = 'menu-photo-placeholder';
+  placeholder.setAttribute('aria-hidden', 'true');
+  placeholder.textContent = '🍽️';
+  wrapper.appendChild(placeholder);
+
+  const imageUrl = getMenuImageUrl(item.image);
+  if (imageUrl) {
+    const image = document.createElement('img');
+    image.src = imageUrl;
+    image.alt = `${item.name || 'Menu item'} photo`;
+    image.loading = 'lazy';
+    image.onerror = () => image.remove();
+    wrapper.appendChild(image);
+  }
+  return wrapper;
 }
 
 function filterMenuCat(cat, btn) {
@@ -836,6 +899,7 @@ function submitRoomOrder() {
 
   const newOrder = {
     id: orderId,
+    bookingId: state.bookings.find(b => b.room === roomNo && b.status === 'Checked-In')?.id || null,
     room: roomNo,
     items: JSON.parse(JSON.stringify(state.posCart)),
     total: subtotal,
@@ -1217,13 +1281,18 @@ function openInvoiceModal(bookingId) {
   if (!booking) return;
 
   const cfg = state.settings;
+  invoiceOfferBookingId = bookingId;
+  invoiceOfferPercent = [0, 10, 20].includes(Number(booking.offerPercent))
+    ? Number(booking.offerPercent)
+    : 0;
 
   // Hotel details
   document.getElementById('invHotelName').innerText = cfg.hotelName;
   document.getElementById('invHotelDetails').innerHTML = `
     5-Star Luxury Property & Heritage Resort<br>
     ${cfg.address}<br>
-    GSTIN: ${cfg.gstin} | Phone: ${cfg.phone}
+    GSTIN: ${cfg.gstin} | Phone: ${cfg.phone}<br>
+    Email: ${cfg.email}
   `;
 
   // Invoice particulars
@@ -1232,7 +1301,9 @@ function openInvoiceModal(bookingId) {
 
   document.getElementById('invGuestName').innerText = booking.guest;
   document.getElementById('invGuestPhone').innerText = booking.phone;
+  document.getElementById('invGuestEmail').innerText = booking.email || '--';
   document.getElementById('invGuestId').innerText = booking.idProof || 'Verified Govt ID';
+  document.getElementById('invGuestCount').innerText = booking.guestsCount || 1;
 
   document.getElementById('invRoomNo').innerText = booking.room;
   document.getElementById('invRoomType').innerText = booking.type;
@@ -1255,36 +1326,216 @@ function openInvoiceModal(bookingId) {
   `;
 
   if (diningTotal > 0) {
-    rowsHtml += `
-      <tr>
-        <td><b>Room Service Dining & Beverage Folio</b></td>
-        <td style="text-align:center;">Folio</td>
-        <td style="text-align:right;">₹${diningTotal.toLocaleString('en-IN')}</td>
-        <td style="text-align:right;">₹${diningTotal.toLocaleString('en-IN')}</td>
-      </tr>
-    `;
+    const diningOrders = state.orders.filter(order => {
+      if (Number(order.room) !== Number(booking.room)) return false;
+      if (order.bookingId) return order.bookingId === booking.id;
+      return order.date >= booking.checkIn && order.date <= booking.checkOut;
+    });
+    const detailedDiningTotal = diningOrders.reduce((sum, order) =>
+      sum + (order.items || []).reduce((orderSum, item) =>
+        orderSum + (Number(item.price) || 0) * (Number(item.qty) || 0), 0), 0);
+
+    if (diningOrders.length && detailedDiningTotal === diningTotal) {
+      rowsHtml += diningOrders.flatMap(order => (order.items || []).map(item => `
+        <tr>
+          <td><b>Room Service: ${item.name}</b><small class="invoice-item-note">Order ${order.id} · ${order.date} ${order.time || ''}</small></td>
+          <td style="text-align:center;">${Number(item.qty) || 0}</td>
+          <td style="text-align:right;">₹${(Number(item.price) || 0).toLocaleString('en-IN')}</td>
+          <td style="text-align:right;">₹${((Number(item.price) || 0) * (Number(item.qty) || 0)).toLocaleString('en-IN')}</td>
+        </tr>
+      `)).join('');
+    } else {
+      rowsHtml += `
+        <tr>
+          <td><b>Room Service Dining & Beverage Folio</b><small class="invoice-item-note">Itemized order details unavailable</small></td>
+          <td style="text-align:center;">Folio</td>
+          <td style="text-align:right;">₹${diningTotal.toLocaleString('en-IN')}</td>
+          <td style="text-align:right;">₹${diningTotal.toLocaleString('en-IN')}</td>
+        </tr>
+      `;
+    }
   }
 
   itemsTbody.innerHTML = rowsHtml;
+  updateInvoiceSignature(booking);
 
-  // Taxes
-  const subtotal = roomTotal + diningTotal;
-  const cgst = Math.round(subtotal * 0.06);
-  const sgst = Math.round(subtotal * 0.06);
-  const cess = Math.round(subtotal * 0.02);
-  const grandTotal = subtotal + cgst + sgst + cess;
+  renderInvoiceTotals(roomTotal + diningTotal);
+  updateInvoiceOfferButtons();
+
+  document.getElementById('invoiceModal').classList.add('active');
+  requestAnimationFrame(() => initializeInvoiceSignaturePad());
+}
+
+let invoiceOfferBookingId = null;
+let invoiceOfferPercent = 0;
+
+function renderInvoiceTotals(subtotal) {
+  const discount = Math.round(subtotal * invoiceOfferPercent / 100);
+  const taxableSubtotal = subtotal - discount;
+  const cgst = Math.round(taxableSubtotal * 0.06);
+  const sgst = Math.round(taxableSubtotal * 0.06);
+  const cess = Math.round(taxableSubtotal * 0.02);
+  const grandTotal = taxableSubtotal + cgst + sgst + cess;
 
   document.getElementById('invSubtotal').innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+  document.getElementById('invDiscountLabel').innerText = `Offer Discount (${invoiceOfferPercent}%):`;
+  document.getElementById('invDiscount').innerText = `−₹${discount.toLocaleString('en-IN')}`;
+  document.getElementById('invDiscountRow').hidden = invoiceOfferPercent === 0;
   document.getElementById('invCgst').innerText = `₹${cgst.toLocaleString('en-IN')}`;
   document.getElementById('invSgst').innerText = `₹${sgst.toLocaleString('en-IN')}`;
   document.getElementById('invCess').innerText = `₹${cess.toLocaleString('en-IN')}`;
   document.getElementById('invGrandTotal').innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
+}
 
-  document.getElementById('invoiceModal').classList.add('active');
+function updateInvoiceOfferButtons() {
+  document.querySelectorAll('[data-invoice-offer]').forEach(button => {
+    const selected = Number(button.dataset.invoiceOffer) === invoiceOfferPercent;
+    button.classList.toggle('is-selected', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
+}
+
+function setInvoiceOffer(percent) {
+  if (![0, 10, 20].includes(percent)) {
+    showToast('Choose a valid 10% or 20% offer.', 'error');
+    return;
+  }
+
+  const booking = state.bookings.find(item => item.id === invoiceOfferBookingId);
+  if (!booking) {
+    showToast('Could not find this booking to apply the offer.', 'error');
+    return;
+  }
+
+  invoiceOfferPercent = percent;
+  booking.offerPercent = percent;
+  saveAllState();
+  renderInvoiceTotals((Number(booking.roomAmount) || 0) + (Number(booking.diningAmount) || 0));
+  updateInvoiceOfferButtons();
 }
 
 function closeInvoiceModal() {
   document.getElementById('invoiceModal').classList.remove('active');
+}
+
+let invoiceSignatureBookingId = null;
+let signaturePadHasInk = false;
+let signaturePointerActive = false;
+
+function updateInvoiceSignature(booking) {
+  invoiceSignatureBookingId = booking.id;
+  const image = document.getElementById('invoiceSignatureImage');
+  const date = document.getElementById('invoiceSignatureDate');
+  const badge = document.getElementById('signatureSavedBadge');
+  const removeButton = document.getElementById('removeInvoiceSignatureButton');
+  image.src = booking.signature || '';
+  image.hidden = !booking.signature;
+  date.innerText = booking.signatureAt
+    ? `Signed ${new Date(booking.signatureAt).toLocaleString('en-IN')}`
+    : 'Signature not provided';
+  badge.innerText = booking.signature ? 'Signature saved' : 'Not signed';
+  badge.classList.toggle('is-signed', Boolean(booking.signature));
+  removeButton.hidden = !booking.signature;
+  clearInvoiceSignaturePad();
+}
+
+function initializeInvoiceSignaturePad(preserveDrawing = false) {
+  const canvas = document.getElementById('invoiceSignaturePad');
+  if (!canvas) return;
+
+  const rect = canvas.getBoundingClientRect();
+  if (!rect.width || !rect.height) return;
+  let previousDrawing = null;
+  if (preserveDrawing && signaturePadHasInk) {
+    previousDrawing = document.createElement('canvas');
+    previousDrawing.width = canvas.width;
+    previousDrawing.height = canvas.height;
+    previousDrawing.getContext('2d').drawImage(canvas, 0, 0);
+  }
+
+  const ratio = window.devicePixelRatio || 1;
+  canvas.width = Math.round(rect.width * ratio);
+  canvas.height = Math.round(rect.height * ratio);
+  const context = canvas.getContext('2d');
+  context.setTransform(ratio, 0, 0, ratio, 0, 0);
+  if (previousDrawing) {
+    context.drawImage(previousDrawing, 0, 0, previousDrawing.width, previousDrawing.height, 0, 0, rect.width, rect.height);
+  }
+  context.lineWidth = 2.4;
+  context.lineCap = 'round';
+  context.lineJoin = 'round';
+  context.strokeStyle = '#172033';
+  canvas.onpointerdown = (event) => {
+    event.preventDefault();
+    signaturePointerActive = true;
+    canvas.setPointerCapture(event.pointerId);
+    const point = getSignaturePoint(event, canvas);
+    context.beginPath();
+    context.moveTo(point.x, point.y);
+  };
+  canvas.onpointermove = (event) => {
+    if (!signaturePointerActive) return;
+    event.preventDefault();
+    const point = getSignaturePoint(event, canvas);
+    context.lineTo(point.x, point.y);
+    context.stroke();
+    signaturePadHasInk = true;
+    document.getElementById('saveInvoiceSignatureButton').disabled = false;
+  };
+  canvas.onpointerup = () => { signaturePointerActive = false; };
+  canvas.onpointercancel = () => { signaturePointerActive = false; };
+}
+
+function getSignaturePoint(event, canvas) {
+  const rect = canvas.getBoundingClientRect();
+  const scale = (window.devicePixelRatio || 1) * rect.width / canvas.width;
+  const yScale = (window.devicePixelRatio || 1) * rect.height / canvas.height;
+  return {
+    x: (event.clientX - rect.left) / scale,
+    y: (event.clientY - rect.top) / yScale
+  };
+}
+
+function clearInvoiceSignaturePad() {
+  const canvas = document.getElementById('invoiceSignaturePad');
+  if (canvas) {
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  signaturePadHasInk = false;
+  signaturePointerActive = false;
+  const saveButton = document.getElementById('saveInvoiceSignatureButton');
+  if (saveButton) saveButton.disabled = true;
+}
+
+function saveInvoiceSignature() {
+  const booking = state.bookings.find(item => item.id === invoiceSignatureBookingId);
+  const canvas = document.getElementById('invoiceSignaturePad');
+  if (!booking || !canvas || !signaturePadHasInk) {
+    showToast('Please draw the guest signature before saving.', 'error');
+    return;
+  }
+
+  const signatureCanvas = document.createElement('canvas');
+  signatureCanvas.width = 720;
+  signatureCanvas.height = 180;
+  signatureCanvas.getContext('2d').drawImage(canvas, 0, 0, signatureCanvas.width, signatureCanvas.height);
+  booking.signature = signatureCanvas.toDataURL('image/png');
+  booking.signatureAt = new Date().toISOString();
+  saveAllState();
+  updateInvoiceSignature(booking);
+  showToast('Guest signature saved to this booking and added to the invoice.', 'success');
+}
+
+function removeInvoiceSignature() {
+  const booking = state.bookings.find(item => item.id === invoiceSignatureBookingId);
+  if (!booking || !booking.signature) return;
+  if (!confirm('Remove the saved guest signature from this booking?')) return;
+  delete booking.signature;
+  delete booking.signatureAt;
+  saveAllState();
+  updateInvoiceSignature(booking);
+  showToast('Saved signature removed from the booking.', 'info');
 }
 
 /* ============================================================================
@@ -1294,6 +1545,131 @@ let tourAnimId = null;
 let tourRotation = 0;
 let isDraggingTour = false;
 let tourStartX = 0;
+let editingRoomNo = null;
+let pendingRoomPhoto = null;
+let pendingRoomPhotoUrl = null;
+let roomPhotoProcessing = false;
+
+function openEditRoomModal(roomNo) {
+  const room = state.rooms.find(r => r.room_no === roomNo);
+  if (!room) return;
+
+  editingRoomNo = roomNo;
+  pendingRoomPhoto = null;
+  roomPhotoProcessing = false;
+  document.getElementById('editRoomNumberInput').value = room.room_no;
+  document.getElementById('editRoomPhotoInput').value = '';
+  document.getElementById('editRoomPhotoPreview').src = room.photos[0];
+  document.getElementById('editRoomPhotoName').innerText = 'Current main photo';
+  document.getElementById('editRoomModalTitle').innerText = `Edit Room ${room.room_no}`;
+  document.getElementById('editRoomModal').classList.add('active');
+}
+
+function handleRoomPhotoSelection(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith('image/')) {
+    showToast('Please select a valid image file.', 'error');
+    event.target.value = '';
+    return;
+  }
+  if (file.size > 10 * 1024 * 1024) {
+    showToast('Please select an image smaller than 10 MB.', 'error');
+    event.target.value = '';
+    return;
+  }
+
+  const previewUrl = URL.createObjectURL(file);
+  if (pendingRoomPhotoUrl) URL.revokeObjectURL(pendingRoomPhotoUrl);
+  pendingRoomPhotoUrl = previewUrl;
+  roomPhotoProcessing = true;
+  const preview = document.getElementById('editRoomPhotoPreview');
+  preview.src = previewUrl;
+  document.getElementById('editRoomPhotoName').innerText = file.name;
+
+  const image = new Image();
+  image.onload = () => {
+    try {
+      const maxDimension = 1280;
+      const scale = Math.min(1, maxDimension / Math.max(image.naturalWidth, image.naturalHeight));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+      canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+      const context = canvas.getContext('2d');
+      if (!context) throw new Error('Image processing is unavailable in this browser.');
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      pendingRoomPhoto = canvas.toDataURL('image/jpeg', 0.76);
+    } catch (err) {
+      pendingRoomPhoto = null;
+      showToast(`Could not prepare the selected photo: ${err.message}`, 'error');
+    } finally {
+      roomPhotoProcessing = false;
+      URL.revokeObjectURL(image.src);
+    }
+  };
+  image.onerror = () => {
+    URL.revokeObjectURL(image.src);
+    pendingRoomPhoto = null;
+    roomPhotoProcessing = false;
+    showToast('Could not read the selected image. Please try another file.', 'error');
+  };
+  image.src = previewUrl;
+}
+
+function closeEditRoomModal() {
+  document.getElementById('editRoomModal').classList.remove('active');
+  document.getElementById('editRoomPhotoInput').value = '';
+  if (pendingRoomPhotoUrl) URL.revokeObjectURL(pendingRoomPhotoUrl);
+  pendingRoomPhotoUrl = null;
+  pendingRoomPhoto = null;
+  roomPhotoProcessing = false;
+  editingRoomNo = null;
+}
+
+function saveRoomDetails() {
+  if (editingRoomNo === null) return;
+  if (roomPhotoProcessing) {
+    showToast('Please wait for the room photo to finish processing.', 'info');
+    return;
+  }
+  const room = state.rooms.find(r => r.room_no === editingRoomNo);
+  if (!room) return;
+
+  const newRoomNo = Number(document.getElementById('editRoomNumberInput').value);
+  if (!Number.isInteger(newRoomNo) || newRoomNo < 1 || newRoomNo > 9999) {
+    showToast('Enter a valid room number between 1 and 9999.', 'error');
+    return;
+  }
+  if (state.rooms.some(other => other.room_no === newRoomNo && other !== room)) {
+    showToast(`Room ${newRoomNo} already exists. Choose a unique room number.`, 'error');
+    return;
+  }
+
+  const oldRoomNo = room.room_no;
+  const reopenRoomDetails = document.getElementById('roomModal').classList.contains('active');
+  room.room_no = newRoomNo;
+  if (pendingRoomPhoto) {
+    room.photos = [pendingRoomPhoto, ...room.photos.slice(1)];
+  }
+  if (newRoomNo !== oldRoomNo) {
+    state.bookings.forEach(booking => {
+      if (Number(booking.room) === oldRoomNo) booking.room = newRoomNo;
+    });
+    state.orders.forEach(order => {
+      if (Number(order.room) === oldRoomNo) order.room = newRoomNo;
+    });
+  }
+
+  closeEditRoomModal();
+  saveAllState();
+  renderDashboard();
+  renderCatalog();
+  renderRestaurantPOS();
+  renderBookings();
+  if (reopenRoomDetails) openRoomModal(newRoomNo);
+  showToast(`Room details updated${oldRoomNo !== newRoomNo ? `: ${oldRoomNo} → ${newRoomNo}` : ''}.`, 'success');
+}
 
 function openRoomModal(roomNo) {
   const room = state.rooms.find(r => r.room_no === roomNo);
@@ -1334,6 +1710,7 @@ function openRoomModal(roomNo) {
       <div><b>Dimensions:</b> ${room.size} &nbsp;|&nbsp; <b>Bedding:</b> ${room.bed}</div>
       <div><b>Amenities:</b> ${room.features.join(' • ')}</div>
     </div>
+    <button class="btn btn-secondary btn-sm" style="margin-top:12px;" onclick="openEditRoomModal(${room.room_no})">✏️ Edit Room Number & Photo</button>
     ${activeBooking ? `
       <div style="margin-top:12px;padding:10px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:8px;font-size:0.8rem;">
         <b style="color:#ef4444;">Current In-House Guest:</b><br>
@@ -1480,7 +1857,7 @@ function start360VirtualCanvas() {
       const x = (Math.sin(angle) * 0.5 + 0.5) * w;
       const depth = Math.cos(angle);
 
-      if (depth > -0.2) {
+      if (depth > 0) {
         // Luxury Balcony Window View
         if (i % 2 === 0) {
           ctx.fillStyle = 'rgba(212, 175, 55, 0.15)';
@@ -1829,6 +2206,7 @@ function saveRoomPrice() {
 
   saveAllState();
   closeEditRoomPriceModal();
+  closeEditRoomModal();
 
   renderDashboard();
   renderCatalog();
@@ -1898,18 +2276,133 @@ function renderMenuManagerTable() {
   const tbody = document.getElementById('menuEditTableBody');
   if (!tbody) return;
 
-  tbody.innerHTML = state.menu.map(item => `
-    <tr>
-      <td><b>${item.name}</b></td>
-      <td><span style="font-size:0.75rem;color:var(--text-secondary);">${item.category}</span></td>
-      <td>
-        <input type="number" id="menuPriceInput_${item.id}" value="${item.price}" min="10" step="10">
-      </td>
-      <td>
-        <button class="btn btn-sm btn-gold" onclick="updateMenuItemPrice(${item.id})">Save</button>
-      </td>
-    </tr>
-  `).join('');
+  tbody.innerHTML = state.menu.map(item => {
+    const itemId = Number(item.id);
+    const itemName = escapeMenuMarkup(item.name || '');
+    const category = escapeMenuMarkup(item.category || '');
+    return `
+      <tr>
+        <td><b>${itemName}</b></td>
+        <td><span style="font-size:0.75rem;color:var(--text-secondary);">${category}</span></td>
+        <td>
+          <input type="number" id="menuPriceInput_${itemId}" value="${Number(item.price) || 0}" min="10" step="10">
+        </td>
+        <td>
+          <div class="menu-manager-photo" id="menuPhotoCell_${itemId}"></div>
+          <input class="menu-photo-input" type="file" id="menuPhotoInput_${itemId}" accept="image/jpeg,image/png,image/webp" aria-label="Upload photo for ${itemName}" onchange="uploadExistingMenuPhoto(${itemId}, this)">
+        </td>
+        <td>
+          <button class="btn btn-sm btn-gold" onclick="updateMenuItemPrice(${itemId})">Save</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  state.menu.forEach(item => {
+    const cell = document.getElementById(`menuPhotoCell_${item.id}`);
+    if (cell) cell.appendChild(createMenuImage(item, 'menu-manager-photo-image'));
+  });
+}
+
+function escapeMenuMarkup(value) {
+  return String(value).replace(/[&<>"']/g, character => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[character]);
+}
+
+function previewNewDishPhoto(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  compressMenuImage(file).then(imageData => {
+    pendingNewDishPhoto = imageData;
+    const preview = document.getElementById('newDishPhotoPreview');
+    preview.innerHTML = '';
+    preview.appendChild(createMenuImage({ name: 'New dish', image: imageData }, 'menu-item-photo'));
+    preview.hidden = false;
+  }).catch(err => {
+    event.target.value = '';
+    pendingNewDishPhoto = '';
+    showToast(err.message, 'error');
+  });
+}
+
+function compressMenuImage(file) {
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+    return Promise.reject(new Error('Choose a JPEG, PNG, or WebP image.'));
+  }
+  if (file.size > 10 * 1024 * 1024) {
+    return Promise.reject(new Error('Choose an image smaller than 10 MB.'));
+  }
+
+  return new Promise((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(file);
+    const image = new Image();
+    image.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      const scale = Math.min(1, 800 / image.width, 600 / image.height);
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(image.width * scale));
+      canvas.height = Math.max(1, Math.round(image.height * scale));
+      const context = canvas.getContext('2d');
+      if (!context) return reject(new Error('Your browser could not process this image.'));
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL('image/jpeg', 0.75));
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error('The selected image could not be opened.'));
+    };
+    image.src = objectUrl;
+  });
+}
+
+async function saveMenuImage(imageData) {
+  try {
+    const response = await fetch('/api/menu-image', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ image: imageData })
+    });
+    const result = await response.json();
+    if (!response.ok || !result.imageUrl) {
+      throw new Error(result.error || `Image upload failed (HTTP ${response.status}).`);
+    }
+    return { imageUrl: result.imageUrl, serverStored: true };
+  } catch (err) {
+    console.warn('[Dining POS] Server image upload unavailable; retaining a browser copy.', err.message);
+    return { imageUrl: imageData, serverStored: false };
+  }
+}
+
+async function uploadExistingMenuPhoto(itemId, input) {
+  const file = input.files && input.files[0];
+  if (!file) return;
+  try {
+    const imageData = await compressMenuImage(file);
+    const item = state.menu.find(menuItem => Number(menuItem.id) === itemId);
+    if (!item) throw new Error('Menu item not found.');
+    const savedImage = await saveMenuImage(imageData);
+    item.image = savedImage.imageUrl;
+    saveAllState();
+    renderMenuGrid();
+    const cell = document.getElementById(`menuPhotoCell_${item.id}`);
+    if (cell) {
+      cell.innerHTML = '';
+      cell.appendChild(createMenuImage(item, 'menu-manager-photo-image'));
+    }
+    showToast(savedImage.serverStored
+      ? `Photo updated for "${item.name}".`
+      : `Photo updated locally for "${item.name}"; server sync is unavailable.`,
+    savedImage.serverStored ? 'success' : 'info');
+  } catch (err) {
+    showToast(err.message || 'Could not update the dish photo.', 'error');
+  } finally {
+    input.value = '';
+  }
 }
 
 function updateMenuItemPrice(id) {
@@ -1932,7 +2425,7 @@ function updateMenuItemPrice(id) {
   showToast(`Updated price for "${item.name}" to ₹${newPrice}!`, 'success');
 }
 
-function addNewDishToMenu() {
+async function addNewDishToMenu() {
   const name = document.getElementById('newDishName').value.trim();
   const category = document.getElementById('newDishCategory').value;
   const price = parseInt(document.getElementById('newDishPrice').value, 10);
@@ -1952,16 +2445,25 @@ function addNewDishToMenu() {
     desc: desc || `${category} delicacy prepared fresh`
   };
 
+  const savedImage = pendingNewDishPhoto ? await saveMenuImage(pendingNewDishPhoto) : null;
+  if (savedImage) newItem.image = savedImage.imageUrl;
   state.menu.push(newItem);
   saveAllState();
 
   document.getElementById('newDishName').value = '';
   document.getElementById('newDishPrice').value = '';
   document.getElementById('newDishDesc').value = '';
+  document.getElementById('newDishPhoto').value = '';
+  document.getElementById('newDishPhotoPreview').innerHTML = '';
+  document.getElementById('newDishPhotoPreview').hidden = true;
+  pendingNewDishPhoto = '';
 
   renderRestaurantPOS();
   renderMenuManagerTable();
-  showToast(`Dish "${name}" added to menu successfully!`, 'success');
+  showToast(savedImage && !savedImage.serverStored
+    ? `Dish "${name}" added; photo is stored in this browser only.`
+    : `Dish "${name}" added to menu successfully!`,
+  savedImage && !savedImage.serverStored ? 'info' : 'success');
 }
 
 /* ============================================================================
@@ -2273,29 +2775,86 @@ function saveToIndexedDB() {
 
 // Check Server Connection
 async function checkServerConnection() {
-  const serverUrl = window.location.protocol.startsWith('http') ? '' : 'http://localhost:3000';
+  const serverUrl = window.location.protocol === 'http:' || window.location.protocol === 'https:'
+    ? window.location.origin
+    : 'http://localhost:3000';
   try {
     const res = await fetch(`${serverUrl}/api/status`, { method: 'GET' });
-    if (res.ok) {
-      const info = await res.json();
-      state.serverConnected = true;
-      state.serverUrl = serverUrl;
-      const badge = document.getElementById('dbStatusBadge');
-      const desc = document.getElementById('dbEngineDescription');
-      if (badge) {
-        badge.className = 'badge badge-available';
-        badge.innerHTML = '🟢 Central Server Database Connected';
-      }
-      if (desc) {
-        desc.innerHTML = `Central Database Engine: <b>Node.js Persistent File DB (${info.databaseFile || 'hotel_database.json'})</b>. Connected at <code>${serverUrl || window.location.origin}</code> with client-side IndexedDB cache.`;
+    if (!res.ok) {
+      throw new Error(`Status endpoint returned HTTP ${res.status} ${res.statusText}`);
+    }
+    const info = await res.json();
+    if (info.status !== 'online') {
+      throw new Error(`Database server is not online (status: ${info.status || 'unknown'})`);
+    }
+
+    const dataResponse = await fetch(`${serverUrl}/api/data`);
+    if (!dataResponse.ok) {
+      throw new Error(`Could not load server data (HTTP ${dataResponse.status} ${dataResponse.statusText})`);
+    }
+    const serverData = await dataResponse.json();
+    const serverHasRecords = ['rooms', 'bookings', 'orders', 'staff', 'partners', 'menu']
+      .some(table => Array.isArray(serverData[table]) && serverData[table].length > 0);
+
+    if (serverHasRecords) {
+      state.rooms = Array.isArray(serverData.rooms) ? serverData.rooms : state.rooms;
+      state.bookings = Array.isArray(serverData.bookings) ? serverData.bookings : state.bookings;
+      state.orders = Array.isArray(serverData.orders) ? serverData.orders : state.orders;
+      state.staff = Array.isArray(serverData.staff) ? serverData.staff : state.staff;
+      state.partners = Array.isArray(serverData.partners) ? serverData.partners : state.partners;
+      state.menu = Array.isArray(serverData.menu) ? serverData.menu : state.menu;
+      if (serverData.settings && typeof serverData.settings === 'object') state.settings = serverData.settings;
+      saveAllState(false);
+    } else {
+      const syncResponse = await fetch(`${serverUrl}/api/data`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          rooms: state.rooms,
+          bookings: state.bookings,
+          orders: state.orders,
+          staff: state.staff,
+          partners: state.partners,
+          menu: state.menu,
+          settings: state.settings
+        })
+      });
+      if (!syncResponse.ok) {
+        throw new Error(`Could not initialize server data (HTTP ${syncResponse.status} ${syncResponse.statusText})`);
       }
     }
-  } catch (err) {
-    state.serverConnected = false;
+
+    state.serverConnected = true;
+    state.serverUrl = serverUrl;
     const badge = document.getElementById('dbStatusBadge');
+    const desc = document.getElementById('dbEngineDescription');
     if (badge) {
       badge.className = 'badge badge-available';
-      badge.innerHTML = '🟢 Browser IndexedDB Active';
+      badge.innerHTML = `🟢 ${info.databaseEngine || 'Central Server Database'} Connected`;
+    }
+    if (desc) {
+      const storageName = info.databaseName || info.databaseFile || 'hotel_database.json';
+      desc.innerHTML = `Central Database Engine: <b>${info.databaseEngine || 'Central Server Database'} (${storageName})</b>. Connected at <code>${serverUrl}</code> with client-side IndexedDB cache.`;
+    }
+    renderDashboard();
+    renderCatalog();
+    renderRestaurantPOS();
+    renderStaff();
+    renderBookings();
+    renderPartners();
+    updateDatabaseConsole();
+  } catch (err) {
+    state.serverConnected = false;
+    state.serverUrl = serverUrl;
+    console.warn(`[Database unavailable at ${serverUrl}; using browser storage]`, err.message);
+    const badge = document.getElementById('dbStatusBadge');
+    const desc = document.getElementById('dbEngineDescription');
+    if (badge) {
+      badge.className = 'badge badge-available';
+      badge.innerHTML = '🟡 Local Database Active';
+    }
+    if (desc) {
+      desc.innerHTML = `Central server unavailable at <code>${serverUrl}</code>: ${err.message}. Changes are being saved to this browser only.`;
     }
   }
 }
@@ -2332,10 +2891,14 @@ function syncDatabaseManual() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).then(r => r.json()).then(data => {
+    }).then(r => {
+      if (!r.ok) throw new Error(`Server sync failed (${r.status})`);
+      return r.json();
+    }).then(data => {
       showToast('Database synchronized to central server & local IndexedDB!', 'success');
-    }).catch(() => {
-      showToast('Saved to browser IndexedDB and LocalStorage database.', 'success');
+    }).catch(err => {
+      console.error('[Manual Database Sync Error]', err);
+      showToast(`Local data saved, but central server sync failed: ${err.message}`, 'error');
     });
   } else {
     showToast('Saved to browser IndexedDB and LocalStorage database.', 'success');
@@ -2385,12 +2948,15 @@ window.addEventListener('resize', () => {
   if (canvas && canvas.parentElement) {
     canvas.width = canvas.parentElement.clientWidth;
   }
+  if (document.getElementById('invoiceModal').classList.contains('active')) {
+    initializeInvoiceSignaturePad(true);
+  }
 });
 
 /* ============================================================================
    BOOTSTRAP APPLICATION
    ============================================================================ */
-document.addEventListener('DOMContentLoaded', () => {
+function bootstrapApp() {
   initState();
   initIndexedDB();
   checkServerConnection();
@@ -2402,19 +2968,10 @@ document.addEventListener('DOMContentLoaded', () => {
   renderBookings();
   renderPartners();
   updateDatabaseConsole();
-});
+}
 
-// Run directly in case DOMContentLoaded has already fired
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  initState();
-  initIndexedDB();
-  checkServerConnection();
-  startLiveClock();
-  renderDashboard();
-  renderCatalog();
-  renderRestaurantPOS();
-  renderStaff();
-  renderBookings();
-  renderPartners();
-  updateDatabaseConsole();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrapApp, { once: true });
+} else {
+  bootstrapApp();
 }
